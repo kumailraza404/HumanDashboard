@@ -1,6 +1,17 @@
 import { styled } from "@mui/system";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { CSSProperties } from "react";
+import { ButtonBase } from "@mui/material";
+
+
+
+export const Button = styled(ButtonBase)(() => ({
+  background:"#7164ba",
+  height:"50px",
+  color:"#FFFFFF",
+  minWidth:"120px",
+  borderRadius:"10px"
+}));
 
 export const DropDownBox = styled(Select)(() => ({
   textAlign: "start",
@@ -76,7 +87,7 @@ export const Text = styled("div", {
     WebkitUserSelect: isClickable ? "unset" : "none",
     MozUserSelect: isClickable ? "unset" : "none",
     msUserSelect: isClickable ? "unset" : "none",
-    color: customColor ? customColor : "red",
+    color: customColor ? customColor : "#7164ba",
     ...customStyle,
   })
 );
