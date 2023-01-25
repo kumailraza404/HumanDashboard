@@ -1,5 +1,6 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
+import Home from "../pages/Home";
 import Layout from "../theme";
 
 const Pages = createBrowserRouter([
@@ -7,7 +8,7 @@ const Pages = createBrowserRouter([
     path: "/",
     element: (
       <Layout>
-        <div>Hello world!</div>,
+        <Home/>
       </Layout>
     ),
   },
@@ -15,7 +16,7 @@ const Pages = createBrowserRouter([
     path: "/sleep",
     element: (
       <Layout>
-        <div>Hello sleep</div>,
+        <div>Hello sleep</div>
       </Layout>
     ),
   },
@@ -23,7 +24,7 @@ const Pages = createBrowserRouter([
     path: "/work",
     element: (
       <Layout>
-        <div>Hello work!</div>,
+        <div>Hello work!</div>
       </Layout>
     ),
   },
@@ -31,7 +32,7 @@ const Pages = createBrowserRouter([
     path: "/fitness",
     element: (
       <Layout>
-        <div>Hello fitness!</div>,
+        <div>Hello fitness!</div>
       </Layout>
     ),
   },
@@ -39,7 +40,7 @@ const Pages = createBrowserRouter([
     path: "/nutrition",
     element: (
       <Layout>
-        <div>Hello nutrition!</div>,
+        <div>Hello nutrition!</div>
       </Layout>
     ),
   },
@@ -47,7 +48,7 @@ const Pages = createBrowserRouter([
     path: "/happiness",
     element: (
       <Layout>
-        <div>Hello happiness!</div>,
+        <div>Hello happiness!</div>
       </Layout>
     ),
   },
@@ -55,7 +56,7 @@ const Pages = createBrowserRouter([
     path: "/wealth",
     element: (
       <Layout>
-        <div>Hello wealth!</div>,
+        <div>Hello wealth!</div>
       </Layout>
     ),
   },

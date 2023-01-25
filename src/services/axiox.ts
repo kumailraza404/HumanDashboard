@@ -10,7 +10,7 @@ class Axios {
     this.instance.interceptors.request.use(function (config: any) {
       console.log("running before request is sent")
       // Do something before request is sent
-      // config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
+      config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
       config.headers['Content-Type'] = 'application/json';
       return config;
     }, function (error: AxiosError) {

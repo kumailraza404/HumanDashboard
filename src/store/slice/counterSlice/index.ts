@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { AppReduxState } from "./types";
+import { AppReduxState } from "../types";
 
 const initialState: AppReduxState = {
   value: 0

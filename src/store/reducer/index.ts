@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import  counterSlice  from "../slice/counterSlice";
+import userSlice from "../slice/userSlice";
 
 // import appReducer from "store/slices/appSlice";
 // import walletReducer from "store/slices/walletSlice";
@@ -16,6 +17,7 @@ const persistConfig = {
 
 const reducers = combineReducers({
   counter: counterSlice,
+  user: userSlice
 });
 
 export const persistedReducer = persistReducer(persistConfig, reducers);
