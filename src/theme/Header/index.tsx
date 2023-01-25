@@ -48,7 +48,7 @@ export default function Header() {
 
   return (
     <HeaderStyled>
-      <Text size={20} weight={700} >
+      <Text size={38} weight={700} >
         Human Dashboard
       </Text>
 

@@ -20,7 +20,7 @@ const Layout = ({ ...props }) => (
         }}
       >
 
-        <Box>
+        <Box sx={{marginTop:"30px"}}>
           {props.children}
         </Box>
         
