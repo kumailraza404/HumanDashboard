@@ -23,7 +23,6 @@ export default function Sidebar() {
     { name: "Happiness", icon: SentimentSatisfiedAltIcon, link: "/happiness" },
     { name: "Wealth", icon: AttachMoneyIcon, link: "/wealth" },
   ];
-  console.log(navigate, "loaction");
   return (
     <Drawer>
       {items.map((item) => {
@@ -31,6 +30,7 @@ export default function Sidebar() {
           <div
             style={{ marginTop: "25px" }}
             onClick={() => navigate(item.link)}
+            key={`navlinks_${item.name}`}
           >
             <SvgIcon component={item.icon} sx={{ color: "#FFFFFF" }} />
           </div>
