@@ -40,7 +40,7 @@ export const OverviewWorkHeading = styled("div")(
       borderRadius:"20px",
       display:"flex",
       flexDirection:"row",
-      justifyContent:"space-between",
+      justifyContent:"space-around",
       alignItems:"center"
     })
 );

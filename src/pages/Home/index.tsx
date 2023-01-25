@@ -35,12 +35,18 @@ const Home = () => {
                     </OverviewSteps>
                     <OverviewWork>
                         <OverviewWorkHeading>
-                        <StepIconDiv sx={{marginLeft:"50px"}}>
+                        <StepIconDiv>
                             <SvgIcon component={WorkIcon} sx={{color:"white", height:"45px", width:"45px"}}/>
                         </StepIconDiv>
                         <div style={{display:"flex", flexDirection:"column", marginRight:"20px"}}>
                             <Text customColor="#FFFFFF" size={38} weight={700}>Work Completed</Text>
                         </div>
+                        {/* <StepIconDiv sx={{marginLeft:"50px"}}>
+                            <SvgIcon component={WorkIcon} sx={{color:"white", height:"45px", width:"45px"}}/>
+                        </StepIconDiv>
+                        <div style={{display:"flex", flexDirection:"column", marginRight:"20px"}}>
+                            <Text customColor="#FFFFFF" size={38} weight={700}>Work Completed</Text>
+                        </div> */}
                         </OverviewWorkHeading>
                         <OverviewWorkDetail>
                         <Text customColor="#FFFFFF" size={22} align={"center"}>Completed 6/8 Tasks</Text>
@@ -100,9 +106,9 @@ const Home = () => {
                 <Grid item xs={3}>
                 <MetricDiv>
                         <MetricImageDiv>
-                            <SvgIcon component={DirectionsBikeIcon} sx={{color:"#FFFFFF", height:"40px", width:"40px"}}/>
+                            <SvgIcon component={EmojiEmotionsIcon} sx={{color:"#FFFFFF", height:"40px", width:"40px"}}/>
                         </MetricImageDiv>
-                        <Text size={30} weight={700} align={"center"} sx={{paddingTop:"40px"}}>EmojiEmotionsIcon</Text>
+                        <Text size={30} weight={700} align={"center"} sx={{paddingTop:"40px"}}>Happiness</Text>
                         <Text size={18} weight={400} align={"center"} sx={{paddingTop:"5px"}}>4 hangouts / Week</Text>
                         <div style={{marginTop:"10px", width:"80%", alignSelf:"center",}}>
                         
