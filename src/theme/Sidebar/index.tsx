@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { Drawer } from "./styles";
 
@@ -23,12 +23,27 @@ export default function Sidebar() {
     { name: "Happiness", icon: SentimentSatisfiedAltIcon, link: "/happiness" },
     { name: "Wealth", icon: AttachMoneyIcon, link: "/wealth" },
   ];
+
+  const {pathname} = useLocation()
+ 
+
+
   return (
+
+
     <Drawer>
       {items.map((item) => {
         return (
           <div
-            style={{ marginTop: "25px" }}
+            style={{ marginTop: "25px", 
+            background: pathname === item.link ? "rgba(96.1,96.1,96.1,0.3)" : "transparent", 
+            height:"40px", width:"40px",
+            display:"flex",
+            justifyContent:"center",
+            alignItems:"center",
+            borderRadius:"40px",
+            cursor:"pointer"
+          }}
             onClick={() => navigate(item.link)}
             key={`navlinks_${item.name}`}
           >

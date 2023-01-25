@@ -41,12 +41,6 @@ const Home = () => {
                         <div style={{display:"flex", flexDirection:"column", marginRight:"20px"}}>
                             <Text customColor="#FFFFFF" size={38} weight={700}>Work Completed</Text>
                         </div>
-                        {/* <StepIconDiv sx={{marginLeft:"50px"}}>
-                            <SvgIcon component={WorkIcon} sx={{color:"white", height:"45px", width:"45px"}}/>
-                        </StepIconDiv>
-                        <div style={{display:"flex", flexDirection:"column", marginRight:"20px"}}>
-                            <Text customColor="#FFFFFF" size={38} weight={700}>Work Completed</Text>
-                        </div> */}
                         </OverviewWorkHeading>
                         <OverviewWorkDetail>
                         <Text customColor="#FFFFFF" size={22} align={"center"}>Completed 6/8 Tasks</Text>
