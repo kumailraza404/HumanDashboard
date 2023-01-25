@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
+import hardSet from "redux-persist/lib/stateReconciler/hardSet";
 import  counterSlice  from "../slice/counterSlice";
 import userSlice from "../slice/userSlice";
 
@@ -12,7 +13,6 @@ const persistConfig = {
   key: "root",
   storage,
   version: 1,
-  whitelist: ["counter"],
 };
 
 const reducers = combineReducers({
