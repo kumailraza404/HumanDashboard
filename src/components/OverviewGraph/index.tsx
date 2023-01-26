@@ -2,13 +2,10 @@ import * as React from "react";
 import ReactApexChart from "react-apexcharts";
 import { useSelector } from "react-redux";
 
-import Axios from "../../services/axiox";
-// import { getWeekByRange } from "../../utils";
 import { Text } from "../../styles";
 import { OverviewGraphWrapper } from "./styles";
 import { RootState } from "../../store/reducer";
 import { getDates, getTotalHoursOfSleep } from "./utils";
-import sleepData from "../../assets/mockData/sleepData.json";
 import { getSleepDataByRange } from "../../services/sleepServices";
 
 const options: ApexCharts.ApexOptions = {
