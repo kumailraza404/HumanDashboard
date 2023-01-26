@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {  UserReduxState } from "../types";
+import { UserReduxState } from "../types";
 
 const initialState: UserReduxState = {
-  email: '',
-  name:'',
-  picture:'',
-  isSignedIn: false
+  email: "",
+  name: "",
+  picture: "",
+  isSignedIn: false,
 };
 
 export const userSlice = createSlice({
@@ -13,22 +13,22 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setName: (state, action) => {
-        state.name = action.payload
+      state.name = action.payload;
     },
     setEmail: (state, action) => {
-        state.email  = action.payload
+      state.email = action.payload;
     },
     setPicture: (state, action) => {
-        state.picture = action.payload
+      state.picture = action.payload;
     },
     setIsSignedIn: (state, action) => {
-      state.isSignedIn = action.payload
-    }
+      state.isSignedIn = action.payload;
+    },
+    signOut: (_action) => initialState,
   },
 });
 
-export const {
-    setName, setEmail, setPicture, setIsSignedIn
-} = userSlice.actions;
+export const { setName, setEmail, setPicture, setIsSignedIn, signOut } =
+  userSlice.actions;
 
 export default userSlice.reducer;

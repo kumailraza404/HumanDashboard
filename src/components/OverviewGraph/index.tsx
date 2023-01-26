@@ -1,35 +1,16 @@
 import * as React from "react";
 import ReactApexChart from "react-apexcharts";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/reducer";
+
 import Axios from "../../services/axiox";
-import { OverviewGraphWrapper } from "./styles";
-import { getWeekByRange } from "../../utils";
+// import { getWeekByRange } from "../../utils";
 import { Text } from "../../styles";
+import { OverviewGraphWrapper } from "./styles";
+import { RootState } from "../../store/reducer";
+import { getDates, getTotalHoursOfSleep } from "./utils";
+import sleepData from "../../assets/mockData/sleepData.json";
+import { getSleepDataByRange } from "../../services/sleepServices";
 
-function generateDayWiseTimeSeries(baseval: any, count: any, yrange: any) {
-  var i = 0;
-  var series = [];
-  while (i < count) {
-    var x = baseval;
-    var y =
-      Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
-
-    series.push([x, y]);
-    baseval += 86400000;
-    i++;
-  }
-  return series;
-}
-const series = [
-  {
-    name: "South",
-    data: generateDayWiseTimeSeries(new Date("11 Feb 2017 GMT").getTime(), 8, {
-      min: 10,
-      max: 100,
-    }),
-  },
-];
 const options: ApexCharts.ApexOptions = {
   chart: {
     foreColor: "#ffffff",
@@ -79,20 +60,16 @@ const options: ApexCharts.ApexOptions = {
 
 const OverviewGraph = () => {
   const { isSignedIn } = useSelector((state: RootState) => state.user);
+  const [seriesData, setSeriesData] = React.useState<number[][]>([]);
+  const dateRange = getDates(7);
+  const series: ApexAxisChartSeries = [
+    {
+      name: "South",
+      data: seriesData,
+    },
+  ];
 
-  // const getSleepData = async () =>{
-  //   const access_token = gapi.auth?.getToken()?.access_token
-  //   console.log(access_token)
-
-  //   let config = {
-  //     headers: {
-  //       'Authorization': 'Bearer ' + access_token
-  //     }
-  //   }
-
-  //   const res = await axios.get('https://www.googleapis.com/fitness/v1/users/me/sessions?startTime=2019-12-05T00:00:00.000Z&endTime=2019-12-17T23:59:59.999Z&activityType=72',config)
-  //   console.log(res)
-  // }
+  console.log(series, "series");
 
   React.useEffect(() => {
     if (isSignedIn) {
@@ -101,14 +78,17 @@ const OverviewGraph = () => {
   }, [isSignedIn]);
 
   const getSleepData = async () => {
-    const { startTime, endTime } = getWeekByRange();
+    const result = await getSleepDataByRange(dateRange);
+    console.log(result);
+    formatWeekSleepData(result);
+  };
 
-    console.log(startTime, endTime);
-
-    // const res = await Axios.get(
-    //   "https://www.googleapis.com/fitness/v1/users/me/sessions?startTime=2019-12-05T00:00:00.000Z&endTime=2019-12-17T23:59:59.999Z&activityType=72",
-    // );
-    // console.log(res);
+  const formatWeekSleepData = (data: any) => {
+    console.log(dateRange, "range");
+    const sleepRange = getTotalHoursOfSleep(dateRange, data);
+    console.log(sleepRange, "sleep Data after normalization");
+    const normalized = dateRange.map((e, i) => [Date.parse(e), sleepRange[i]]);
+    setSeriesData(normalized);
   };
 
   return (

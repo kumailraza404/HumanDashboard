@@ -1,0 +1,86 @@
+{
+ "session": [
+    {
+     "id": "Sleep1",
+     "name": "Sleep",
+     "description": "",
+     "startTimeMillis": "1674086400000",
+     "endTimeMillis": "1674115200000",
+     "modifiedTimeMillis": "1575590432413",
+     "application": {
+      "packageName": "com.example.sleep_tracker"
+     },
+     "activityType": 72
+    },
+    {
+     "id": "Sleep2",
+     "name": "Sleep",
+     "description": "",
+     "startTimeMillis": "1674172800000",
+     "endTimeMillis": "1674201600000",
+     "modifiedTimeMillis": "1575590432413",
+     "application": {
+      "packageName": "com.example.sleep_tracker"
+     },
+     "activityType": 72
+    },
+    {
+     "id": "Sleep3",
+     "name": "Sleep",
+     "description": "",
+     "startTimeMillis": "1674259200000",
+     "endTimeMillis": "1674288000000",
+     "modifiedTimeMillis": "1575590432413",
+     "application": {
+      "packageName": "com.example.sleep_tracker"
+     },
+     "activityType": 72
+    },
+    {
+     "id": "Sleep4",
+     "name": "Sleep",
+     "description": "",
+     "startTimeMillis": "1674345600000",
+     "endTimeMillis": "1674374400000",
+     "modifiedTimeMillis": "1575590432413",
+     "application": {
+      "packageName": "com.example.sleep_tracker"
+     },
+     "activityType": 72
+    },{
+     "id": "Sleep5",
+     "name": "Sleep",
+     "description": "",
+     "startTimeMillis": "1674432000000",
+     "endTimeMillis": "1674460800000",
+     "modifiedTimeMillis": "1575590432413",
+     "application": {
+      "packageName": "com.example.sleep_tracker"
+     },
+     "activityType": 72
+    },{
+     "id": "Sleep6",
+     "name": "Sleep",
+     "description": "",
+     "startTimeMillis": "1674518400000",
+     "endTimeMillis": "1674547200000",
+     "modifiedTimeMillis": "1575590432413",
+     "application": {
+      "packageName": "com.example.sleep_tracker"
+     },
+     "activityType": 72
+    },{
+     "id": "Sleep7",
+     "name": "Sleep",
+     "description": "",
+     "startTimeMillis": "1674604800000",
+     "endTimeMillis": "1674633600000",
+     "modifiedTimeMillis": "1575590432413",
+     "application": {
+      "packageName": "com.example.sleep_tracker"
+     },
+     "activityType": 72
+    }
+  ],
+ "deletedSession": []
+}
