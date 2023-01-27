@@ -7,6 +7,7 @@ import OverviewGraph from "../../components/OverviewGraph";
 import DailyJogging from "../../components/DailyJogging";
 import OverviewWork from "../../components/OverviewWork";
 import DashboardMetricCard from "../../components/DashboardMetricCard";
+import ReactApexChart from "react-apexcharts";
 
 const Home = () => {
   const [sleephours, setSleepHours] = useState(0);
@@ -77,6 +78,14 @@ const Home = () => {
           />
         </Grid>
       </Grid>
+
+      <Grid
+        container
+        display={"flex"}
+        justifyContent={"space-between"}
+        marginTop={12}
+        columnSpacing={4}
+      ></Grid>
     </Grid>
   );
 };

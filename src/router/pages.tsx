@@ -1,6 +1,7 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import Home from "../pages/Home";
+import Sleep from "../pages/Sleep";
 import Layout from "../theme";
 
 const Pages = createBrowserRouter([
@@ -8,7 +9,7 @@ const Pages = createBrowserRouter([
     path: "/",
     element: (
       <Layout>
-        <Home/>
+        <Home />
       </Layout>
     ),
   },
@@ -16,7 +17,7 @@ const Pages = createBrowserRouter([
     path: "/sleep",
     element: (
       <Layout>
-        <div>Hello sleep</div>
+        <Sleep />
       </Layout>
     ),
   },
