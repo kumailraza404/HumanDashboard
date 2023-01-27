@@ -11,11 +11,11 @@ class Axios {
     // Add a request interceptor
     this.instance.interceptors.request.use(
       function (config: any) {
-        console.log("running before request is sent");
+        // console.log("running before request is sent");
         // Do something before request is sent
         const token = localStorage.getItem("token")?.replace(/"/g, "");
 
-        console.log(token, "token");
+        // console.log(token, "token");
         config.headers.Authorization = `Bearer ${token}`;
         config.headers["Content-Type"] = "application/json";
         return config;

@@ -58,7 +58,7 @@ const DashboardMetricCard = ({
             align={"center"}
             sx={{ paddingTop: "5px" }}
           >
-            70%
+            {progress}%
           </Text>
         </div>
 

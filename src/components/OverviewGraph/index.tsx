@@ -5,8 +5,9 @@ import { useSelector } from "react-redux";
 import { Text } from "../../styles";
 import { OverviewGraphWrapper } from "./styles";
 import { RootState } from "../../store/reducer";
-import { getDates, getTotalHoursOfSleep } from "./utils";
 import { getSleepDataByRange } from "../../services/sleepServices";
+import { getDates, getTotalHoursOfSleep } from "../../utils";
+import { getStepCountsForTheDay } from "../../services/stepCount";
 
 const options: ApexCharts.ApexOptions = {
   chart: {
@@ -54,8 +55,10 @@ const options: ApexCharts.ApexOptions = {
     type: "datetime",
   },
 };
-
-const OverviewGraph = () => {
+interface IOverviewGraph {
+  setSleepHoursForToday: (args: number) => void;
+}
+const OverviewGraph = ({ setSleepHoursForToday }: IOverviewGraph) => {
   const { isSignedIn } = useSelector((state: RootState) => state.user);
   const [seriesData, setSeriesData] = React.useState<number[][]>([]);
   const dateRange = getDates(7);
@@ -66,27 +69,26 @@ const OverviewGraph = () => {
     },
   ];
 
-  console.log(series, "series");
+  const getSleepData = async () => {
+    const result = await getSleepDataByRange();
+    // console.log(result);
+    formatWeekSleepData(result);
+  };
+
+  const formatWeekSleepData = (data: any) => {
+    // console.log(dateRange, "range");
+    const sleepRange = getTotalHoursOfSleep(dateRange, data);
+    // console.log(sleepRange, "sleep Data after normalization");
+    const normalized = dateRange.map((e, i) => [Date.parse(e), sleepRange[i]]);
+    setSeriesData(normalized);
+    setSleepHoursForToday(sleepRange[sleepRange.length - 1]);
+  };
 
   React.useEffect(() => {
     if (isSignedIn) {
       getSleepData();
     }
   }, [isSignedIn]);
-
-  const getSleepData = async () => {
-    const result = await getSleepDataByRange(dateRange);
-    console.log(result);
-    formatWeekSleepData(result);
-  };
-
-  const formatWeekSleepData = (data: any) => {
-    console.log(dateRange, "range");
-    const sleepRange = getTotalHoursOfSleep(dateRange, data);
-    console.log(sleepRange, "sleep Data after normalization");
-    const normalized = dateRange.map((e, i) => [Date.parse(e), sleepRange[i]]);
-    setSeriesData(normalized);
-  };
 
   return (
     <OverviewGraphWrapper>

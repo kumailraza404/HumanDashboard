@@ -25,7 +25,7 @@ const OverviewWork = () => {
             marginRight: "20px",
           }}
         >
-          <Text customColor="#FFFFFF" size={38} weight={700}>
+          <Text customColor="#FFFFFF" size={28} weight={700}>
             Work Completed
           </Text>
         </div>

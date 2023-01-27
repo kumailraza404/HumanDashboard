@@ -7,26 +7,27 @@ import { relative } from "path";
 let i = new Array(60).fill(5);
 
 const Layout = ({ ...props }) => (
-  <Box sx={{ display:"flex", flexDirection:"row", justifyContent:"space-around" }}>
+  <Box
+    sx={{
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-around",
+    }}
+  >
     <Sidebar />
-    
+
     <Box>
       <Header />
       <Box
         sx={{
           display: "flex",
-          flexDirection:"column",
-          marginTop:"20px"
+          flexDirection: "column",
+          margin: "20px 0",
         }}
       >
-
-        <Box sx={{marginTop:"30px"}}>
-          {props.children}
-        </Box>
-        
+        <Box sx={{ marginTop: "30px" }}>{props.children}</Box>
+      </Box>
     </Box>
-    </Box>
-
   </Box>
 );
 

@@ -14,7 +14,7 @@ export const OverviewSteps = styled("div")(() => ({
 export const StepIconDiv = styled("div")(() => ({
   height: "70px",
   width: "125px",
-  background: "rgba(96.1,96.1,96.1,0.3)",
+  background: "rgba(256,256,256,0.2)",
   borderRadius: "20px",
   display: "flex",
   justifyContent: "center",
