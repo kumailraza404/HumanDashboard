@@ -5,7 +5,11 @@ import { useSelector } from "react-redux";
 import { Text } from "../../styles";
 import { OverviewGraphWrapper } from "./styles";
 import { RootState } from "../../store/reducer";
-import { getSleepDataByRange } from "../../services/sleepServices";
+import {
+  getMonthlySleepData,
+  getSleepDataByRange,
+  getWeeklySleepData,
+} from "../../services/sleepServices";
 import { getDates, getTotalHoursOfSleep } from "../../utils";
 import { getStepCountsForTheDay } from "../../services/stepCount";
 
@@ -71,6 +75,11 @@ const OverviewGraph = ({ setSleepHoursForToday }: IOverviewGraph) => {
 
   const getSleepData = async () => {
     const result = await getSleepDataByRange();
+    // const result2 = await getMonthlySleepData();
+    // const result3 = await getWeeklySleepData();
+    // console.log(result2, "result 2");
+    // console.log(result3, "result 3");
+
     // console.log(result);
     formatWeekSleepData(result);
   };

@@ -1,13 +1,22 @@
 export function getByRange(pastDaysCount: number) {
-  var start = new Date();
+  let end = new Date();
+  end.setHours(23, 59, 59);
+  if (pastDaysCount === 1) {
+    let start = new Date();
+    start.setHours(0, 0, 0);
+    return {
+      endTime: end.toISOString(),
+      startTime: start.toISOString(),
+    };
+  }
 
-  var end = new Date();
-  end.setUTCHours(0, 0, 0, 0);
-  end.setDate(end.getDate() - pastDaysCount);
+  let start = new Date();
+  start.setHours(0, 0, 0);
+  start.setDate(end.getDate() - pastDaysCount);
 
   return {
-    endTime: start.toISOString(),
-    startTime: end.toISOString(),
+    endTime: end.toISOString(),
+    startTime: start.toISOString(),
   };
 }
 export function getTotalHoursOfSleep(dates: string[], data: any) {
