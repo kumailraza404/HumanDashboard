@@ -11,7 +11,7 @@ import {
   getWeeklySleepData,
 } from "../../services/sleepServices";
 import { getDates, getTotalHoursOfSleep } from "../../utils";
-import { getStepCountsForTheDay } from "../../services/stepCount";
+import { Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
 
 const options: ApexCharts.ApexOptions = {
   chart: {
@@ -62,10 +62,13 @@ const options: ApexCharts.ApexOptions = {
 interface IOverviewGraph {
   setSleepHoursForToday?: (args: number) => void;
 }
-const OverviewGraph = ({ setSleepHoursForToday }: IOverviewGraph) => {
+const SleepGraphWithRangeSlider = ({
+  setSleepHoursForToday,
+}: IOverviewGraph) => {
   const { isSignedIn } = useSelector((state: RootState) => state.user);
   const [seriesData, setSeriesData] = React.useState<number[][]>([]);
-  const dateRange = getDates(7);
+  const [range, setRange] = React.useState<string>("weekly");
+
   const series: ApexAxisChartSeries = [
     {
       name: "Hours",
@@ -73,17 +76,21 @@ const OverviewGraph = ({ setSleepHoursForToday }: IOverviewGraph) => {
     },
   ];
 
-  const getSleepData = async () => {
-    const result = await getSleepDataByRange();
-    // const result2 = await getMonthlySleepData();
-    // const result3 = await getWeeklySleepData();
-    // console.log(result2, "result 2");
-    // console.log(result3, "result 3");
-
-    formatWeekSleepData(result);
+  const getSleepDataWeekly = () => {
+    const dateRangeWeekly = getDates(7);
+    getSleepDataByRange().then((res) => {
+      formatWeekSleepData(dateRangeWeekly, res);
+    });
+  };
+  const getSleepDataMonthly = () => {
+    const dateRangeMonthly = getDates(30);
+    getMonthlySleepData().then((res) => {
+      formatWeekSleepData(dateRangeMonthly, res);
+      console.log(dateRangeMonthly, res, "res");
+    });
   };
 
-  const formatWeekSleepData = (data: any) => {
+  const formatWeekSleepData = (dateRange: string[], data: any) => {
     // console.log(dateRange, "range");
     const sleepRange = getTotalHoursOfSleep(dateRange, data);
     const normalized = dateRange.map((e, i) => [Date.parse(e), sleepRange[i]]);
@@ -93,17 +100,57 @@ const OverviewGraph = ({ setSleepHoursForToday }: IOverviewGraph) => {
     }
   };
 
+  const handleRangeChange = (
+    event: React.MouseEvent<HTMLElement>,
+    newRange: string,
+  ) => {
+    if (newRange) {
+      setRange(newRange);
+    }
+  };
+
   React.useEffect(() => {
     if (isSignedIn) {
-      getSleepData();
+      if (range === "weekly") {
+        getSleepDataWeekly();
+      } else if (range === "monthly") {
+        getSleepDataMonthly();
+      }
     }
-  }, [isSignedIn]);
+  }, [isSignedIn, range]);
 
   return (
     <OverviewGraphWrapper>
-      <Text customColor="#FFFFFF" size={30} sx={{ marginLeft: "2%" }}>
-        Sleep Overview
-      </Text>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        paddingX="10px"
+      >
+        <Text customColor="#FFFFFF" size={30} sx={{ marginLeft: "2%" }}>
+          Sleep Overview
+        </Text>
+        <ToggleButtonGroup
+          value={range}
+          exclusive
+          onChange={handleRangeChange}
+          aria-label="text alignment"
+          sx={{ background: "rgba(256,256,256,0.5)" }}
+          color="primary"
+        >
+          <ToggleButton value="weekly" aria-label="left aligned">
+            <Text customColor="#fff" size={12}>
+              Weekly
+            </Text>
+          </ToggleButton>
+          <ToggleButton value="monthly" aria-label="centered">
+            <Text customColor="#fff" size={12}>
+              Monthly
+            </Text>
+          </ToggleButton>
+        </ToggleButtonGroup>
+      </Stack>
+
       <ReactApexChart
         options={options}
         series={series}
@@ -115,4 +162,4 @@ const OverviewGraph = ({ setSleepHoursForToday }: IOverviewGraph) => {
   );
 };
 
-export default OverviewGraph;
+export default SleepGraphWithRangeSlider;

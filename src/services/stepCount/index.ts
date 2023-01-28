@@ -5,7 +5,6 @@ export const getStepCountsForTheDay = async () => {
   const date = new Date();
   const start = moment(date).format("YYYY-MM-DD") + " 00:00:00";
   const end = moment(date).format("YYYY-MM-DD") + " 23:59:59";
-  console.log(start, end, "start and end dates");
 
   return await Axios.post(
     `https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate`,

@@ -23,6 +23,8 @@ export default function Header() {
     "https://www.googleapis.com/auth/calendar.readonly",
     "https://www.googleapis.com/auth/calendar.settings.readonly",
     "https://www.googleapis.com/auth/calendar",
+    "https://www.googleapis.com/auth/fitness.sleep.read",
+    "https://www.googleapis.com/auth/fitness.sleep.write",
   ];
 
   const scopeString = scopes.join(" ");

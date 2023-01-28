@@ -1,0 +1,50 @@
+{
+ "bucket": [
+  {
+   "startTimeMillis": "1575591360000",
+   "endTimeMillis": "1575609060000",
+   "dataset": [
+    {
+     "point": [
+      {
+       "startTimeNanos": "1575591360000000000",
+       "endTimeNanos": "1575595020000000000",
+       "dataTypeName": "com.google.sleep.segment",
+       "originDataSourceId": "...",
+       "value": [
+        {
+         "intVal": 4,
+         "mapVal": []
+        }
+       ]
+      },
+      {
+       "startTimeNanos": "1575595020000000000",
+       "endTimeNanos": "1575596220000000000",
+       "dataTypeName": "com.google.sleep.segment",
+       "originDataSourceId": "...",
+       "value": [
+        {
+         "intVal": 1,
+         "mapVal": []
+        }
+       ]
+      },
+      {
+       "startTimeNanos": "1575605940000000000",
+       "endTimeNanos": "1575609060000000000",
+       "dataTypeName": "com.google.sleep.segment",
+       "originDataSourceId": "...",
+       "value": [
+        {
+         "intVal": 4,
+         "mapVal": []
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
