@@ -154,7 +154,7 @@ const SleepGraphWithRangeSlider = ({
       <ReactApexChart
         options={options}
         series={series}
-        type="area"
+        type="bar"
         height={350}
         widtgh={"100%"}
       />

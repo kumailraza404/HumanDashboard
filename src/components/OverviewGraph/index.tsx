@@ -79,6 +79,7 @@ const OverviewGraph = ({ setSleepHoursForToday }: IOverviewGraph) => {
     // const result3 = await getWeeklySleepData();
     // console.log(result2, "result 2");
     // console.log(result3, "result 3");
+    console.log(result, "check result");
 
     formatWeekSleepData(result);
   };
