@@ -7,6 +7,15 @@ import { PersistGate } from "redux-persist/integration/react";
 import Router from "./router";
 import { store } from "./store/store";
 
+import { Web3ReactProvider } from "@web3-react/core";
+import { Web3Provider } from "@ethersproject/providers";
+
+function getLibrary(provider: any): Web3Provider {
+  const library = new Web3Provider(provider);
+  library.pollingInterval = 12000;
+  return library;
+}
+
 let persistor = persistStore(store);
 
 function App() {
@@ -15,7 +24,9 @@ function App() {
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <GoogleOAuthProvider clientId={googleClientId}>
-          <Router />
+          <Web3ReactProvider getLibrary={getLibrary}>
+            <Router />
+          </Web3ReactProvider>
         </GoogleOAuthProvider>
       </PersistGate>
     </Provider>

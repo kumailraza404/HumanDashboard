@@ -1,3 +1,13 @@
+import { InjectedConnector } from "@web3-react/injected-connector";
+
+export const injected = new InjectedConnector({
+  supportedChainIds: [1, 3, 4, 5, 10, 42, 31337, 42161],
+});
+
+export const formatAddress = (address: string) => {
+  return address.substring(0, 3) + "..." + address.slice(-3);
+};
+
 export function getByRange(pastDaysCount: number) {
   let end = new Date();
   end.setHours(23, 59, 59);

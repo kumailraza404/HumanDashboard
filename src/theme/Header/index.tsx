@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Text } from "../../styles";
 import { useGoogleLogin } from "@react-oauth/google";
 import { HeaderStyled, ProfileCircle } from "./styles";
@@ -11,6 +11,10 @@ import {
   setPicture,
 } from "../../store/slice/userSlice";
 import { RootState } from "../../store/reducer";
+import { useWeb3React } from "@web3-react/core";
+import { Web3Provider } from "@ethersproject/providers";
+import { formatAddress, injected } from "../../utils/index";
+import { UserRejectedRequestError } from "@web3-react/injected-connector";
 
 export default function Header() {
   const { isSignedIn, email, name, picture } = useSelector(
@@ -58,7 +62,7 @@ export default function Header() {
       </Text>
 
       <div style={{ display: "flex", height: "100%" }}>
-        <Button>Connect Wallet</Button>
+        <ConnectWallet />
 
         {isSignedIn ? (
           <ProfileCircle src={picture} referrerPolicy="no-referrer" />
@@ -71,3 +75,49 @@ export default function Header() {
     </HeaderStyled>
   );
 }
+
+const ConnectWallet = () => {
+  const {
+    chainId,
+    account,
+    activate,
+    deactivate,
+    setError,
+    active,
+    library,
+    connector,
+  } = useWeb3React<Web3Provider>();
+
+  const onClickConnect = () => {
+    activate(
+      injected,
+      (error) => {
+        if (error instanceof UserRejectedRequestError) {
+          // ignore user rejected error
+          console.log("user refused");
+        } else {
+          setError(error);
+        }
+      },
+      false,
+    );
+  };
+
+  const onClickDisconnect = () => {
+    deactivate();
+  };
+
+  useEffect(() => {
+    console.log(chainId, account, active, library, connector);
+  });
+
+  return (
+    <div>
+      {active && typeof account === "string" ? (
+        <Button onClick={onClickDisconnect}>{formatAddress(account)}</Button>
+      ) : (
+        <Button onClick={onClickConnect}>Connect Wallet</Button>
+      )}
+    </div>
+  );
+};
