@@ -58,3 +58,40 @@ export function getDates(daysBefore: number) {
   }
   return dates.reverse();
 }
+
+export function getTotalHoursOfActivities(dates: string[], data: any) {
+  let normalizeData = {
+    biking: new Array(dates.length).fill(0),
+    running: new Array(dates.length).fill(0),
+    swimming: new Array(dates.length).fill(0),
+  };
+
+  // console.log(data.session, "session.data");
+  data.session.forEach((segment: any) => {
+    const segmentEndDate = new Date(parseInt(segment.endTimeMillis));
+    let duration =
+      (segment.endTimeMillis - segment.startTimeMillis) / (1000 * 60 * 60);
+
+    const startDateString = segmentEndDate.toISOString().split("T")[0];
+    const index = dates.indexOf(startDateString);
+
+    // console.log(segment.activityType, "Check type");
+
+    if (segment.activityType == "1") {
+      normalizeData.biking[index] =
+        normalizeData.biking[index] + parseFloat(duration.toFixed(2));
+    }
+
+    if (segment.activityType == "35") {
+      normalizeData.running[index] =
+        normalizeData.running[index] + parseFloat(duration.toFixed(2));
+    }
+    if (segment.activityType == "100") {
+      normalizeData.swimming[index] =
+        normalizeData.swimming[index] + parseFloat(duration.toFixed(2));
+    }
+  });
+  // console.log(dates, "dates");
+
+  return normalizeData;
+}

@@ -36,37 +36,6 @@ const Sleep = () => {
             <DailySleepSegmentChart />
           </div>
         </Grid>
-        {/* <Grid item xs={6}>
-          <div
-            style={{
-              background: "#FFFFFF",
-              borderRadius: "20px",
-              paddingBottom: "40px",
-              position: "relative",
-              height: "435px",
-            }}
-          >
-            <MetricImageDiv>
-              <SvgIcon
-                component={SportsScoreIcon}
-                sx={{ color: "#FFFFFF", height: "40px", width: "40px" }}
-              ></SvgIcon>
-            </MetricImageDiv>
-            <div
-              style={{
-                padding: "20px",
-                paddingTop: "40px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Text size={30}>Sleep Score</Text>
-              <Text size={15}>For last night</Text>
-            </div>
-          </div>
-        </Grid> */}
       </Grid>
     </Grid>
   );

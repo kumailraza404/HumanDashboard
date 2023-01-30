@@ -1,5 +1,6 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
+import Fitness from "../pages/Fitness";
 import Home from "../pages/Home";
 import Sleep from "../pages/Sleep";
 import Layout from "../theme";
@@ -33,7 +34,7 @@ const Pages = createBrowserRouter([
     path: "/fitness",
     element: (
       <Layout>
-        <div>Hello fitness!</div>
+        <Fitness />
       </Layout>
     ),
   },
