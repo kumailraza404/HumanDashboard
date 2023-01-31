@@ -8,9 +8,16 @@ import { Text } from "../../styles";
 import { RootState } from "../../store/reducer";
 import { getStepCountsForTheDay } from "../../services/stepCount";
 
-const DailyJogging = () => {
+interface IDailyJogging {
+  setDailyStepsForTheDay: (args: number) => void;
+  dailyStepsForTheDay: number;
+}
+
+const DailyJogging = ({
+  setDailyStepsForTheDay,
+  dailyStepsForTheDay,
+}: IDailyJogging) => {
   const { isSignedIn } = useSelector((state: RootState) => state.user);
-  const [steps, setSteps] = useState(0);
 
   const getStepCountData = async () => {
     const result = await getStepCountsForTheDay();
@@ -23,7 +30,7 @@ const DailyJogging = () => {
     );
 
     // console.log(sum, "total steps");
-    setSteps(sum);
+    setDailyStepsForTheDay(sum);
   };
   useEffect(() => {
     if (isSignedIn) {
@@ -44,7 +51,7 @@ const DailyJogging = () => {
           Daily Steps
         </Text>
         <Text customColor="#FFFFFF" size={22}>
-          {steps} Steps
+          {dailyStepsForTheDay} Steps
         </Text>
       </StepDetailDiv>
     </OverviewSteps>

@@ -12,8 +12,9 @@ import { OverridableComponent } from "@mui/material/OverridableComponent";
 interface DashboardMetricCardProps {
   heading: string;
   subHeading: string;
-  progress: number;
+  progress?: number;
   icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & { muiName: string };
+  height?: string;
 }
 
 const DashboardMetricCard = ({
@@ -21,9 +22,10 @@ const DashboardMetricCard = ({
   subHeading,
   progress,
   icon,
+  height = "200px",
 }: DashboardMetricCardProps) => {
   return (
-    <MetricDiv>
+    <MetricDiv height={height}>
       <MetricImageDiv>
         <SvgIcon
           component={icon}
@@ -36,38 +38,40 @@ const DashboardMetricCard = ({
       <Text size={18} weight={400} align={"center"} sx={{ paddingTop: "5px" }}>
         {subHeading}
       </Text>
-      <div style={{ marginTop: "10px", width: "80%", alignSelf: "center" }}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <Text
-            size={18}
-            weight={400}
-            align={"center"}
-            sx={{ paddingTop: "5px" }}
+      {progress && (
+        <div style={{ marginTop: "10px", width: "80%", alignSelf: "center" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
           >
-            Progress
-          </Text>
-          <Text
-            size={18}
-            weight={400}
-            align={"center"}
-            sx={{ paddingTop: "5px" }}
-          >
-            {progress}%
-          </Text>
-        </div>
+            <Text
+              size={18}
+              weight={400}
+              align={"center"}
+              sx={{ paddingTop: "5px" }}
+            >
+              Progress
+            </Text>
+            <Text
+              size={18}
+              weight={400}
+              align={"center"}
+              sx={{ paddingTop: "5px" }}
+            >
+              {progress}%
+            </Text>
+          </div>
 
-        <LinearProgress
-          variant="determinate"
-          value={progress}
-          sx={{ marginTop: "20px" }}
-        />
-      </div>
+          <LinearProgress
+            variant="determinate"
+            value={progress}
+            sx={{ marginTop: "20px" }}
+          />
+        </div>
+      )}
     </MetricDiv>
   );
 };

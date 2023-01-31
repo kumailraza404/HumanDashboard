@@ -11,6 +11,7 @@ import ReactApexChart from "react-apexcharts";
 
 const Home = () => {
   const [sleephours, setSleepHours] = useState(0);
+  const [dailyStepsForTheDay, setDailyStepsForTheDay] = useState(0);
 
   const sleepProgress = useMemo(() => {
     if (sleephours) {
@@ -41,7 +42,10 @@ const Home = () => {
           justifyContent={"space-between"}
           rowSpacing={4}
         >
-          <DailyJogging />
+          <DailyJogging
+            setDailyStepsForTheDay={setDailyStepsForTheDay}
+            dailyStepsForTheDay={dailyStepsForTheDay}
+          />
           <OverviewWork />
         </Grid>
       </Grid>

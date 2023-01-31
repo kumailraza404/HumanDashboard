@@ -31,6 +31,7 @@ export default function Header() {
     "https://www.googleapis.com/auth/fitness.sleep.write",
     "https://www.googleapis.com/auth/fitness.nutrition.read",
     "https://www.googleapis.com/auth/fitness.nutrition.write",
+    "https://www.googleapis.com/auth/fitness.location.read",
   ];
 
   const scopeString = scopes.join(" ");

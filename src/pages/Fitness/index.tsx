@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { Grid, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useSelector } from "react-redux";
 import ReactApexChart from "react-apexcharts";
+import WhatshotIcon from "@mui/icons-material/Whatshot";
+import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
+import WaterIcon from "@mui/icons-material/Water";
 
 import { Text } from "../../styles";
 import { RootState } from "../../store/reducer";
@@ -9,10 +12,13 @@ import {
   getMonthlyActivityData,
   getWeeklyActivityData,
   getCaloriesExpendedForTheDay,
+  getDistanceCoveredForTheDay,
+  getHydrationForTheDay,
 } from "../../services/fitnessSerices";
 import { getDates, getTotalHoursOfActivities } from "../../utils";
 import { OverviewGraphWrapper } from "./styles";
 import { Stack } from "@mui/system";
+import DashboardMetricCard from "../../components/DashboardMetricCard";
 
 const options: ApexCharts.ApexOptions = {
   chart: {
@@ -70,6 +76,9 @@ const Fitness = () => {
   const [bikingSeriesData, setBikingSeriesData] = useState<number[][]>([]);
   const [runningSeriesData, setRunningSeriesData] = useState<number[][]>([]);
   const [swimmingSeriesData, setSwimmingSeriesData] = useState<number[][]>([]);
+  const [caloriesBurned, setCaloriesBurned] = useState(0);
+  const [distanceCovered, setDistanceCovered] = useState(0);
+  const [hydration, setHydration] = useState(0);
 
   const handleRangeChange = (
     event: React.MouseEvent<HTMLElement>,
@@ -118,13 +127,14 @@ const Fitness = () => {
     console.log(normalizedData, "normalized activity data");
   };
 
-  const sumOfCalories = (res: any) => {
+  const sumResultData = (res: any): number => {
     const result = res?.bucket[0]?.dataset[0]?.point?.reduce(
       (total: number, current: any) => {
         return total + parseFloat(current.value[0].fpVal);
       },
       0,
     );
+    return result;
     console.log(result, "calories sum for the day");
   };
 
@@ -141,12 +151,28 @@ const Fitness = () => {
   const getCaloriesBurnedToday = async () => {
     const res = await getCaloriesExpendedForTheDay();
     console.log(res, "calories data");
-    sumOfCalories(res);
+    const sum = sumResultData(res);
+    setCaloriesBurned(sum);
+  };
+
+  const getDistanceCoveredToday = async () => {
+    const res = await getDistanceCoveredForTheDay();
+    console.log(res, "distance data");
+    const sum = sumResultData(res);
+    setDistanceCovered(sum);
+  };
+  const getHydrationToday = async () => {
+    const res = await getHydrationForTheDay();
+    console.log(res, "distance data");
+    const sum = sumResultData(res);
+    setHydration(sum);
   };
 
   useEffect(() => {
     if (isSignedIn) {
       getCaloriesBurnedToday();
+      getDistanceCoveredToday();
+      getHydrationToday();
       if (range === "weekly") {
         getActivitiesByWeek();
       }
@@ -205,23 +231,32 @@ const Fitness = () => {
         </Grid>
       </Grid>
       <Grid container display={"flex"} marginTop={12} columnSpacing={4}>
-        {/* <Grid item xs={12}>
-          <div
-            style={{
-              background: "#FFFFFF",
-              borderRadius: "20px",
-              paddingBottom: "40px",
-              height: "435px",
-            }}
-          >
-            <div style={{ padding: "20px", paddingTop: "40px" }}>
-              <Text size={30} sx={{ marginLeft: "2%" }}>
-                Last Night's Sleep Quality
-              </Text>
-            </div>
-            <DailySleepSegmentChart />
-          </div>
-        </Grid> */}
+        <Grid item xs={4}>
+          <DashboardMetricCard
+            heading={`Calories Burned`}
+            subHeading={`${caloriesBurned.toFixed(2)} in kcal`}
+            icon={WhatshotIcon}
+            height="150px"
+          />
+        </Grid>
+
+        <Grid item xs={4}>
+          <DashboardMetricCard
+            heading={`Hydration`}
+            subHeading={`${hydration.toFixed(2)} litres`}
+            icon={WaterIcon}
+            height="150px"
+          />
+        </Grid>
+
+        <Grid item xs={4}>
+          <DashboardMetricCard
+            heading={`Distance Covered`}
+            subHeading={`${distanceCovered.toFixed(2)} meters`}
+            icon={WhatshotIcon}
+            height="150px"
+          />
+        </Grid>
       </Grid>
     </Grid>
   );

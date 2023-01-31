@@ -32,7 +32,7 @@ const DailySleepSegmentChart = () => {
   };
 
   function calculateDuration(data: any) {
-    let durations = new Array(7).fill(0);
+    let durations = new Array(7).fill(1);
     console.log(data, "check data");
     for (let i = 0; i < data.bucket.length; i++) {
       for (let j = 0; j < data.bucket[i].dataset.length; j++) {

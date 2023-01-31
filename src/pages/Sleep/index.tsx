@@ -2,8 +2,6 @@ import { Grid, SvgIcon } from "@mui/material";
 import DailySleepSegmentChart from "../../components/DailySleepSegmentChart";
 import SleepGraphWithRangeSlider from "../../components/SleepGraphWithRangeSlider";
 import { Text } from "../../styles";
-import { MetricImageDiv } from "./styles";
-import SportsScoreIcon from "@mui/icons-material/SportsScore";
 
 const Sleep = () => {
   return (
