@@ -50,7 +50,7 @@ export const getHydrationForTheDay = async () => {
     {
       aggregateBy: [
         {
-          dataTypeName: "com.google.distance.delta",
+          dataTypeName: "com.google.hydration",
         },
       ],
       endTimeMillis: Date.parse(end),
