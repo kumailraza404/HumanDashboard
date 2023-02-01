@@ -40,6 +40,25 @@ export const getDistanceCoveredForTheDay = async () => {
   );
 };
 
+export const getHeartPointsForTheDay = async () => {
+  const date = new Date();
+  const start = moment(date).format("YYYY-MM-DD") + " 00:00:00";
+  const end = moment(date).format("YYYY-MM-DD") + " 23:59:59";
+
+  return await Axios.post(
+    `https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate`,
+    {
+      aggregateBy: [
+        {
+          dataTypeName: "com.google.heart_minutes",
+        },
+      ],
+      endTimeMillis: Date.parse(end),
+      startTimeMillis: Date.parse(start),
+    },
+  );
+};
+
 export const getHydrationForTheDay = async () => {
   const date = new Date();
   const start = moment(date).format("YYYY-MM-DD") + " 00:00:00";

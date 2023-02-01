@@ -3,8 +3,8 @@ import { Grid, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useSelector } from "react-redux";
 import ReactApexChart from "react-apexcharts";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
-import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
 import WaterIcon from "@mui/icons-material/Water";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import { Text } from "../../styles";
 import { RootState } from "../../store/reducer";
@@ -14,6 +14,7 @@ import {
   getCaloriesExpendedForTheDay,
   getDistanceCoveredForTheDay,
   getHydrationForTheDay,
+  getHeartPointsForTheDay,
 } from "../../services/fitnessSerices";
 import { getDates, getTotalHoursOfActivities } from "../../utils";
 import { OverviewGraphWrapper } from "./styles";
@@ -79,6 +80,7 @@ const Fitness = () => {
   const [caloriesBurned, setCaloriesBurned] = useState(0);
   const [distanceCovered, setDistanceCovered] = useState(0);
   const [hydration, setHydration] = useState(0);
+  const [heartPts, setHeartPts] = useState(0);
 
   const handleRangeChange = (
     event: React.MouseEvent<HTMLElement>,
@@ -150,22 +152,29 @@ const Fitness = () => {
 
   const getCaloriesBurnedToday = async () => {
     const res = await getCaloriesExpendedForTheDay();
-    console.log(res, "calories data");
+
     const sum = sumResultData(res);
     setCaloriesBurned(sum);
   };
 
   const getDistanceCoveredToday = async () => {
     const res = await getDistanceCoveredForTheDay();
-    console.log(res, "distance data");
+
     const sum = sumResultData(res);
     setDistanceCovered(sum);
   };
   const getHydrationToday = async () => {
     const res = await getHydrationForTheDay();
-    console.log(res, "distance data");
+
     const sum = sumResultData(res);
     setHydration(sum);
+  };
+
+  const getHeartPoints = async () => {
+    const res = await getHeartPointsForTheDay();
+
+    const sum = sumResultData(res);
+    setHeartPts(sum);
   };
 
   useEffect(() => {
@@ -173,6 +182,7 @@ const Fitness = () => {
       getCaloriesBurnedToday();
       getDistanceCoveredToday();
       getHydrationToday();
+      getHeartPoints();
       if (range === "weekly") {
         getActivitiesByWeek();
       }
@@ -231,7 +241,7 @@ const Fitness = () => {
         </Grid>
       </Grid>
       <Grid container display={"flex"} marginTop={12} columnSpacing={4}>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <DashboardMetricCard
             heading={`Calories Burned`}
             subHeading={`${caloriesBurned.toFixed(2)} in kcal`}
@@ -240,7 +250,7 @@ const Fitness = () => {
           />
         </Grid>
 
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <DashboardMetricCard
             heading={`Hydration`}
             subHeading={`${hydration.toFixed(2)} litres`}
@@ -249,11 +259,20 @@ const Fitness = () => {
           />
         </Grid>
 
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <DashboardMetricCard
             heading={`Distance Covered`}
             subHeading={`${distanceCovered.toFixed(2)} meters`}
             icon={WhatshotIcon}
+            height="150px"
+          />
+        </Grid>
+
+        <Grid item xs={3}>
+          <DashboardMetricCard
+            heading={`Heart Points`}
+            subHeading={`${heartPts.toFixed(2)} pts`}
+            icon={FavoriteIcon}
             height="150px"
           />
         </Grid>
