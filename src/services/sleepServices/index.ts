@@ -3,8 +3,11 @@ import moment from "moment";
 import Axios from "../axiox";
 import { getByRange } from "../../utils";
 
-export const getSleepDataByRange = async () => {
-  const { startTime, endTime } = getByRange(7);
+export const getSleepDataByRange = async (
+  startTime: string,
+  endTime: string,
+) => {
+  // const { startTime, endTime } = getByRange(7);
 
   // console.log(startTime, endTime, "start and end Time");
 
@@ -13,17 +16,13 @@ export const getSleepDataByRange = async () => {
   );
 };
 
-export const getMonthlySleepData = async () => {
+export const getMonthlySleepData = async (
+  firstDay: string,
+  lastDay: string,
+) => {
   console.log("monthly called");
-  var date = new Date();
-  var firstDay = new Date(
-    new Date(date.getFullYear(), date.getMonth(), 2).setHours(0, 0, 0),
-  );
-  var lastDay = new Date(
-    new Date(date.getFullYear(), date.getMonth() + 1, 0).setHours(23, 59, 59),
-  );
   return await Axios.get(
-    `https://www.googleapis.com/fitness/v1/users/me/sessions?startTime=${firstDay.toISOString()}&endTime=${lastDay.toISOString()}&activityType=72`,
+    `https://www.googleapis.com/fitness/v1/users/me/sessions?startTime=${firstDay}&endTime=${lastDay}&activityType=72`,
   );
 };
 

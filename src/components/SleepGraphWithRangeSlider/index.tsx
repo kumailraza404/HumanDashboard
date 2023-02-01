@@ -16,11 +16,7 @@ import { Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
 const options: ApexCharts.ApexOptions = {
   chart: {
     foreColor: "#ffffff",
-    events: {
-      selection: function (_chart, e) {
-        console.log(new Date(e.xaxis.min));
-      },
-    },
+
     toolbar: {
       show: false,
     },
@@ -78,22 +74,36 @@ const SleepGraphWithRangeSlider = ({
 
   const getSleepDataWeekly = () => {
     const dateRangeWeekly = getDates(7);
-    getSleepDataByRange().then((res) => {
+    const firstDayDate = new Date(dateRangeWeekly[0]).setHours(0, 0, 0);
+    const lastDayDate = new Date(
+      dateRangeWeekly[dateRangeWeekly.length - 1],
+    ).setHours(23, 59, 59);
+    const firsDayISO = new Date(firstDayDate).toISOString();
+    const lastDayISO = new Date(lastDayDate).toISOString();
+    getSleepDataByRange(firsDayISO, lastDayISO).then((res) => {
       formatWeekSleepData(dateRangeWeekly, res);
     });
   };
   const getSleepDataMonthly = () => {
     const dateRangeMonthly = getDates(30);
-    getMonthlySleepData().then((res) => {
+    const firstDayDate = new Date(dateRangeMonthly[0]).setHours(0, 0, 0);
+    const lastDayDate = new Date(
+      dateRangeMonthly[dateRangeMonthly.length - 1],
+    ).setHours(23, 59, 59);
+    const firsDayISO = new Date(firstDayDate).toISOString();
+    const lastDayISO = new Date(lastDayDate).toISOString();
+
+    getMonthlySleepData(firsDayISO, lastDayISO).then((res) => {
       formatWeekSleepData(dateRangeMonthly, res);
-      console.log(dateRangeMonthly, res, "res");
     });
   };
 
   const formatWeekSleepData = (dateRange: string[], data: any) => {
-    // console.log(dateRange, "range");
     const sleepRange = getTotalHoursOfSleep(dateRange, data);
-    const normalized = dateRange.map((e, i) => [Date.parse(e), sleepRange[i]]);
+    const normalized = dateRange.map((e, i) => {
+      return [new Date(e), sleepRange[i]];
+    });
+    console.log(normalized, "aisa bun raha hai normalized");
     setSeriesData(normalized);
     if (setSleepHoursForToday) {
       setSleepHoursForToday(sleepRange[sleepRange.length - 1]);

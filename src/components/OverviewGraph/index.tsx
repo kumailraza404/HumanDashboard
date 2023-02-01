@@ -74,12 +74,16 @@ const OverviewGraph = ({ setSleepHoursForToday }: IOverviewGraph) => {
   ];
 
   const getSleepData = async () => {
-    const result = await getSleepDataByRange();
-    // const result2 = await getMonthlySleepData();
-    // const result3 = await getWeeklySleepData();
-    // console.log(result2, "result 2");
-    // console.log(result3, "result 3");
-    console.log(result, "check result");
+    const dateRangeWeekly = getDates(7);
+
+    const firstDayDate = new Date(dateRangeWeekly[0]).setHours(0, 0, 0);
+    const lastDayDate = new Date(
+      dateRangeWeekly[dateRangeWeekly.length - 1],
+    ).setHours(23, 59, 59);
+    const firsDayISO = new Date(firstDayDate).toISOString();
+    const lastDayISO = new Date(lastDayDate).toISOString();
+
+    const result = await getSleepDataByRange(firsDayISO, lastDayISO);
 
     formatWeekSleepData(result);
   };

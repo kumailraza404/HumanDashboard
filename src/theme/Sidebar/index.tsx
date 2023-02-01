@@ -25,9 +25,8 @@ export default function Sidebar() {
   const items = [
     { name: "Home", icon: DashboardIcon, link: "/" },
     { name: "Sleep", icon: NightShelterIcon, link: "/sleep" },
-    { name: "Work", icon: WorkIcon, link: "/work" },
+    { name: "Work Life", icon: WorkIcon, link: "/work-life" },
     { name: "Fitness", icon: FitnessCenterIcon, link: "/fitness" },
-    { name: "Happiness", icon: SentimentSatisfiedAltIcon, link: "/happiness" },
     { name: "Wealth", icon: AttachMoneyIcon, link: "/wealth" },
   ];
 

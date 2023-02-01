@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Fitness from "../pages/Fitness";
 import Home from "../pages/Home";
 import Sleep from "../pages/Sleep";
+import WorkLife from "../pages/WorkLife";
 import Layout from "../theme";
 
 const Pages = createBrowserRouter([
@@ -23,10 +24,10 @@ const Pages = createBrowserRouter([
     ),
   },
   {
-    path: "/work",
+    path: "/work-life",
     element: (
       <Layout>
-        <div>Hello work!</div>
+        <WorkLife />
       </Layout>
     ),
   },
