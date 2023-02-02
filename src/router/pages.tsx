@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Fitness from "../pages/Fitness";
 import Home from "../pages/Home";
 import Sleep from "../pages/Sleep";
+import Wealth from "../pages/Wealth";
 import WorkLife from "../pages/WorkLife";
 import Layout from "../theme";
 
@@ -39,27 +40,27 @@ const Pages = createBrowserRouter([
       </Layout>
     ),
   },
-  {
-    path: "/nutrition",
-    element: (
-      <Layout>
-        <div>Hello nutrition!</div>
-      </Layout>
-    ),
-  },
-  {
-    path: "/happiness",
-    element: (
-      <Layout>
-        <div>Hello happiness!</div>
-      </Layout>
-    ),
-  },
+  // {
+  //   path: "/nutrition",
+  //   element: (
+  //     <Layout>
+  //       <div>Hello nutrition!</div>
+  //     </Layout>
+  //   ),
+  // },
+  // {
+  //   path: "/happiness",
+  //   element: (
+  //     <Layout>
+  //       <div>Hello happiness!</div>
+  //     </Layout>
+  //   ),
+  // },
   {
     path: "/wealth",
     element: (
       <Layout>
-        <div>Hello wealth!</div>
+        <Wealth />
       </Layout>
     ),
   },

@@ -35,7 +35,7 @@ const DashboardMetricCard = ({
       <Text size={30} weight={700} align={"center"} sx={{ paddingTop: "40px" }}>
         {heading}
       </Text>
-      <Text size={18} weight={400} align={"center"} sx={{ paddingTop: "5px" }}>
+      <Text size={18} weight={400} align={"center"} sx={{ paddingTop: "15px" }}>
         {subHeading}
       </Text>
       {progress && (

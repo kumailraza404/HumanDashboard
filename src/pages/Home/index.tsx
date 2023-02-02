@@ -62,7 +62,6 @@ const Home = () => {
             heading="Bicycle Drill"
             subHeading="10KM/day"
             icon={DirectionsBikeIcon}
-            progress={70}
           />
         </Grid>
         <Grid item xs={4}>
@@ -70,7 +69,6 @@ const Home = () => {
             heading="Sleepy Hours"
             subHeading={`${sleephours} hours`}
             icon={BedtimeIcon}
-            progress={sleepProgress}
           />
         </Grid>
         <Grid item xs={4}>
@@ -78,7 +76,6 @@ const Home = () => {
             heading="Happy Hours"
             subHeading="4 hangouts / week"
             icon={EmojiEmotionsIcon}
-            progress={70}
           />
         </Grid>
       </Grid>

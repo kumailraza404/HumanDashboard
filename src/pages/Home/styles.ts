@@ -16,7 +16,7 @@ export const MetricDiv = styled("div", {
   height?: string;
 }>(({ height }) => ({
   background: "#FFFFFF",
-  height: height ? height : "200px",
+  height: "150px",
   width: "100%",
   borderRadius: "20px",
   position: "relative",
