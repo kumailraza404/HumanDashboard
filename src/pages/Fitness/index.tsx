@@ -74,9 +74,9 @@ const options: ApexCharts.ApexOptions = {
 const Fitness = () => {
   const { isSignedIn } = useSelector((state: RootState) => state.user);
   const [range, setRange] = useState<string>("weekly");
-  const [bikingSeriesData, setBikingSeriesData] = useState<number[][]>([]);
   const [runningSeriesData, setRunningSeriesData] = useState<number[][]>([]);
-  const [swimmingSeriesData, setSwimmingSeriesData] = useState<number[][]>([]);
+  const [walkingSeriesData, setWalkingSeriesData] = useState<number[][]>([]);
+
   const [caloriesBurned, setCaloriesBurned] = useState(0);
   const [distanceCovered, setDistanceCovered] = useState(0);
   const [hydration, setHydration] = useState(0);
@@ -92,39 +92,39 @@ const Fitness = () => {
   };
 
   const series: ApexAxisChartSeries = [
-    {
-      name: "Biking",
-      data: bikingSeriesData,
-    },
+    // {
+    //   name: "Biking",
+    //   data: bikingSeriesData,
+    // },
     {
       name: "Running",
       data: runningSeriesData,
     },
     {
-      name: "Swimming",
-      data: swimmingSeriesData,
+      name: "Walking",
+      data: walkingSeriesData,
     },
+    // {
+    //   name: "Swimming",
+    //   data: swimmingSeriesData,
+    // },
   ];
 
   const filterDataByRange = (days: number, res: any) => {
     const dates = getDates(days);
     const normalizedData = getTotalHoursOfActivities(dates, res);
-    const normalizedBiking = dates.map((e, i) => [
-      Date.parse(e),
-      normalizedData.biking[i],
-    ]);
-    setBikingSeriesData(normalizedBiking);
+
     const normalizedRunning = dates.map((e, i) => [
       Date.parse(e),
       normalizedData.running[i],
     ]);
     setRunningSeriesData(normalizedRunning);
 
-    const normalizedSwimming = dates.map((e, i) => [
+    const normalizedwalking = dates.map((e, i) => [
       Date.parse(e),
-      normalizedData.swimming[i],
+      normalizedData.walking[i],
     ]);
-    setSwimmingSeriesData(normalizedSwimming);
+    setWalkingSeriesData(normalizedwalking);
 
     console.log(normalizedData, "normalized activity data");
   };
@@ -137,7 +137,6 @@ const Fitness = () => {
       0,
     );
     return result;
-    console.log(result, "calories sum for the day");
   };
 
   const getActivitiesByMonth = async () => {
