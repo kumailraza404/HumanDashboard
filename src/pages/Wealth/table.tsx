@@ -82,7 +82,9 @@ const BasicTable = ({ tokenList }: Props) => {
                 align="right"
                 sx={{ color: "#7164ba", fontWeight: "600" }}
               >
-                ${token.usdPriceCurrent.toFixed(4)}
+                $
+                {typeof token.usdPriceCurrent == "number" &&
+                  token.usdPriceCurrent.toFixed(4)}
               </TableCell>
               <TableCell
                 align="right"

@@ -41,7 +41,7 @@ const Wealth = () => {
       let result = res.data;
       const ethData = await getResultForEth();
       console.log(ethData, "check eth data");
-      result.push(ethData);
+      if (parseFloat(ethData.balance) > 0) result.push(ethData);
       setTokenList(result);
     }
   };
@@ -67,7 +67,9 @@ const Wealth = () => {
   const getWealth = async () => {
     const res = await getWealthData(account || "");
     if (res.data == "Address not found") {
-      console.log("error");
+      const ethData = await getResultForEth();
+      console.log(ethData, "check eth data");
+      if (parseFloat(ethData.balance) > 0) setTokenList([ethData]);
     } else formatResult(res);
     // await getResultForEth();
   };
