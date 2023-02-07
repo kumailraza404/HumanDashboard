@@ -110,10 +110,6 @@ const ConnectWallet = () => {
     deactivate();
   };
 
-  useEffect(() => {
-    console.log(chainId, account, active, library, connector);
-  });
-
   return (
     <div>
       {active && typeof account === "string" ? (

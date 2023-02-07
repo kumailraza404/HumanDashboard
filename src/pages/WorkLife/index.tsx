@@ -1,7 +1,12 @@
-import { Grid } from "@mui/material";
+import { Grid, SvgIcon } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getCalendarData } from "../../services/calendarServices";
-import { Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import GaugeChart from "react-gauge-chart";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/reducer";
+import WorkIcon from "@mui/icons-material/Work";
+import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
+import { MetricDiv, MetricImageDiv } from "./styles";
 import { Text } from "../../styles";
 
 interface IEvent {
@@ -93,10 +98,14 @@ interface ResponseEvent {
 }
 
 const WorkLife = () => {
+  const { isSignedIn } = useSelector((state: RootState) => state.user);
+
   const [workData, setWorkData] = useState<IEvent[]>([]);
   const [happinessData, setHappinessData] = useState<IEvent[]>([]);
   const [happinessHours, setHappinessHours] = useState(0);
   const [workHours, setWorkHours] = useState(0);
+  const [workHoursinPercent, setWorkHoursinPercent] = useState(0);
+  const [happinessHoursinPercent, setHappinessHoursinPercent] = useState(0);
 
   console.log(
     workData,
@@ -105,6 +114,8 @@ const WorkLife = () => {
     "space",
     happinessHours,
     workHours,
+    workHoursinPercent,
+    "in percent",
   );
 
   const formatResult = (res: ResponseEvent[]) => {
@@ -114,7 +125,9 @@ const WorkLife = () => {
       let obj: IEvent = { name: "", duration: 0 };
       if (
         event.summary.includes("happy") ||
-        event.summary.includes("hangout")
+        event.summary.includes("hangout") ||
+        event.summary.includes("friend") ||
+        event.summary.includes("Hanging")
       ) {
         obj.name = event.summary;
         obj.duration =
@@ -127,7 +140,7 @@ const WorkLife = () => {
         obj.duration =
           (new Date(event.end.dateTime).valueOf() -
             new Date(event.start.dateTime).valueOf()) /
-          60000;
+          (1000 * 60 * 60);
         tempWork.push(obj);
       }
     });
@@ -144,6 +157,32 @@ const WorkLife = () => {
   const arr = new Array(7).fill(1);
 
   useEffect(() => {
+    if (workHours <= 8) {
+      console.log("worksdkas", workHours);
+      const temp = (workHours / 8 / 33) * 10;
+      setWorkHoursinPercent(temp);
+    } else if (workHours > 8 && workHours <= 12) {
+      const temp = (workHours / 8 / 33) * 10;
+      setWorkHoursinPercent(temp);
+    } else {
+      setWorkHoursinPercent(1);
+    }
+  }, [workHours]);
+
+  useEffect(() => {
+    if (happinessHours <= 8) {
+      console.log("worksdkas", happinessHours);
+      const temp = (happinessHours / 8 / 33) * 10;
+      setHappinessHoursinPercent(temp);
+    } else if (happinessHours > 8 && happinessHours <= 12) {
+      const temp = (happinessHours / 8 / 33) * 10;
+      setHappinessHoursinPercent(temp);
+    } else {
+      setHappinessHoursinPercent(1);
+    }
+  }, [happinessHours]);
+
+  useEffect(() => {
     const sumForHappiness = happinessData.reduce(
       (total, current) => total + current.duration,
       0,
@@ -158,36 +197,99 @@ const WorkLife = () => {
   }, [workData, happinessData]);
 
   useEffect(() => {
-    getCalendarDataForMonth();
+    if (isSignedIn) getCalendarDataForMonth();
   }, []);
 
   return (
     <Grid>
-      <Grid
-        container
-        display={"flex"}
-        justifyContent={"center"}
-        alignItems={"center"}
-        columnSpacing={4}
-      >
-        <Grid item xs={12} display={"flex"} justifyContent={"center"}></Grid>
-        {/* <Grid
-          xs={12}
-          sx={{
-            border: "1px solid green",
-          }}
-          container
-          columnSpacing={4}
-        >
-          {arr.map((e) => {
-            return (
-              <Grid
-                xs={4}
-                sx={{ border: "1px solid red", height: "200px", width: "100%" }}
-              ></Grid>
-            );
-          })}
-        </Grid> */}
+      <Grid container display={"flex"} columnSpacing={4}>
+        <Grid item xs={6} display={"flex"} justifyContent={"center"}>
+          <MetricDiv>
+            <MetricImageDiv>
+              <SvgIcon
+                component={WorkIcon}
+                sx={{ color: "#FFFFFF", height: "40px", width: "40px" }}
+              />
+            </MetricImageDiv>
+            <Text
+              size={30}
+              weight={700}
+              align={"center"}
+              sx={{ paddingTop: "40px" }}
+            >
+              Work Hours
+            </Text>
+            <Text
+              size={18}
+              weight={400}
+              align={"center"}
+              sx={{ paddingTop: "10px" }}
+            >
+              {workHours} hour(s) spent working today
+            </Text>
+            <Grid>
+              <GaugeChart
+                id="gauge-chart1"
+                nrOfLevels={3}
+                percent={workHoursinPercent}
+                hideText
+                // needleColor={"#7164ba"}
+                // needleBaseColor={"#7164ba"}
+
+                style={{
+                  height: 100,
+                  width: 250,
+                  paddingTop: "20px",
+                  paddingBottom: "20px",
+                }}
+              />
+            </Grid>
+          </MetricDiv>
+        </Grid>
+
+        <Grid item xs={6} display={"flex"} justifyContent={"center"}>
+          <MetricDiv>
+            <MetricImageDiv>
+              <SvgIcon
+                component={EmojiEmotionsIcon}
+                sx={{ color: "#FFFFFF", height: "40px", width: "40px" }}
+              />
+            </MetricImageDiv>
+            <Text
+              size={30}
+              weight={700}
+              align={"center"}
+              sx={{ paddingTop: "40px" }}
+            >
+              Happy Hours
+            </Text>
+            <Text
+              size={18}
+              weight={400}
+              align={"center"}
+              sx={{ paddingTop: "10px" }}
+            >
+              {happinessHours} hour(s) spend being happy today
+            </Text>
+            <Grid>
+              <GaugeChart
+                id="gauge-chart1"
+                nrOfLevels={3}
+                percent={happinessHoursinPercent}
+                hideText
+                // needleColor={"#7164ba"}
+                // needleBaseColor={"#7164ba"}
+
+                style={{
+                  height: 100,
+                  width: 250,
+                  paddingTop: "20px",
+                  paddingBottom: "20px",
+                }}
+              />
+            </Grid>
+          </MetricDiv>
+        </Grid>
       </Grid>
     </Grid>
   );

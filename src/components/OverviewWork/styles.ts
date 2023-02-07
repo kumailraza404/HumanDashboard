@@ -5,6 +5,7 @@ export const OverviewWork = styled("div")(() => ({
   background: "#ec628e",
   borderRadius: "20px",
   width: "100%",
+  boxShadow: "10px 5px 5px rgba(0,0,0,0.2)",
 }));
 
 export const OverviewWorkHeading = styled("div")(() => ({

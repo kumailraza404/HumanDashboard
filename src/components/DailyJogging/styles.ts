@@ -9,6 +9,7 @@ export const OverviewSteps = styled("div")(() => ({
   flexDirection: "row",
   alignItems: "center",
   justifyContent: "space-around",
+  boxShadow: "10px 5px 5px rgba(0,0,0,0.2)",
 }));
 
 export const StepIconDiv = styled("div")(() => ({

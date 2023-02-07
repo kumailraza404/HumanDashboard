@@ -8,6 +8,7 @@ export const MetricDiv = styled("div")(() => ({
   position: "relative",
   display: "flex",
   flexDirection: "column",
+  boxShadow: "10px 5px 5px rgba(0,0,0,0.2)",
 }));
 
 export const MetricImageDiv = styled("div")(() => ({
