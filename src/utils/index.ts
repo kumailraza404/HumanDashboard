@@ -2,7 +2,7 @@ import { InjectedConnector } from "@web3-react/injected-connector";
 import { ethers } from "ethers";
 
 export const injected = new InjectedConnector({
-  supportedChainIds: [1, 3, 4, 5, 10, 42, 31337, 42161],
+  supportedChainIds: [1, 3, 4, 5, 10, 42, 31337, 42161, 137, 80001],
 });
 
 export const formatAddress = (address: string) => {
