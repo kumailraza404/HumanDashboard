@@ -49,9 +49,9 @@ const BasicTable = ({ tokenList }: Props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {tokens.map((token) => (
+          {tokens.map((token, index) => (
             <TableRow
-              key={token.name}
+              key={token.name + index}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell

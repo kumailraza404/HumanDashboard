@@ -11,3 +11,9 @@ export const getWealthData = async (account: string) => {
     },
   );
 };
+
+export const getWealthDataForEth = async () => {
+  return await axios.get(
+    "https://api.coingecko.com/api/v3/simple/price?ids=weth&vs_currencies=usd&include_24hr_change=true",
+  );
+};

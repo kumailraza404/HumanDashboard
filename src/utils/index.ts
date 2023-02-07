@@ -1,4 +1,5 @@
 import { InjectedConnector } from "@web3-react/injected-connector";
+import { ethers } from "ethers";
 
 export const injected = new InjectedConnector({
   supportedChainIds: [1, 3, 4, 5, 10, 42, 31337, 42161],
@@ -90,3 +91,10 @@ export function getTotalHoursOfActivities(dates: string[], data: any) {
 
   return normalizeData;
 }
+
+export const getBalanceOfEth = async (address: string) => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const balance = await provider.getBalance(address);
+  const balanceInEth = ethers.utils.formatEther(balance);
+  return balanceInEth;
+};

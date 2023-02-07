@@ -1,4 +1,3 @@
-import moment from "moment";
 import { getByRange } from "../../utils";
 import Axios from "../axiox";
 

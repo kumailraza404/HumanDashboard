@@ -4,15 +4,15 @@ import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 
-import { formatAddress, injected } from "../../utils/index";
+import { getBalanceOfEth, injected } from "../../utils/index";
 import { UserRejectedRequestError } from "@web3-react/injected-connector";
 import { Button, Text } from "../../styles";
-import { getWealthData } from "../../services/wealthServices";
-import DashboardMetricCard from "../../components/DashboardMetricCard";
 import {
-  MetricDiv,
-  MetricImageDiv,
-} from "../../components/DashboardMetricCard/styles";
+  getWealthData,
+  getWealthDataForEth,
+} from "../../services/wealthServices";
+import DashboardMetricCard from "../../components/DashboardMetricCard";
+
 import BasicTable from "./table";
 
 export interface TokenDetails {
@@ -35,33 +35,54 @@ const Wealth = () => {
   const { chainId, account, activate, deactivate, setError, active } =
     useWeb3React<Web3Provider>();
 
-  const formatResult = (res: any) => {
+  const formatResult = async (res: any) => {
+    console.log(res.data, "Check res.data from format result");
     if (res.data.length > 0) {
-      setTokenList(res.data);
-      const sum = res.data.reduce(
-        (total: number, current: any) => total + current.usdPriceCurrent,
-        0,
-      );
-      setTotalAssetinUSD(sum.toFixed(2));
+      let result = res.data;
+      const ethData = await getResultForEth();
+      console.log(ethData, "check eth data");
+      result.push(ethData);
+      setTokenList(result);
     }
+  };
 
-    // if (res.length > 0) {
-    //   setTokenList(res);
-    //   const sum = res.reduce(
-    //     (total: number, current: any) => total + current.usdPriceCurrent,
-    //     0,
-    //   );
-    //   setTotalAssetinUSD(sum.toFixed(2));
-    // }
+  const getResultForEth = async (): Promise<TokenDetails> => {
+    const ethBalance = await getBalanceOfEth(account || "");
+    const response = await getWealthDataForEth();
+    console.log(response, "check response getWealthDataForEth");
+
+    let obj: TokenDetails = {
+      token_address: "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619",
+      name: "Ethereum",
+      symbol: "Eth",
+      decimals: 18,
+      balance: ethBalance,
+      changeIn24h: response.data.weth.usd_24h_change,
+      usdPriceCurrent: response.data.weth.usd * parseFloat(ethBalance),
+      usdPricePast: 0,
+    };
+    return obj;
   };
 
   const getWealth = async () => {
     const res = await getWealthData(account || "");
-    console.log(res, "res from wealth");
     if (res.data == "Address not found") {
       console.log("error");
     } else formatResult(res);
+    // await getResultForEth();
   };
+
+  const calculateSum = () => {
+    const sum = tokenList.reduce(
+      (total: number, current) => total + current.usdPriceCurrent,
+      0,
+    );
+    setTotalAssetinUSD(sum);
+  };
+
+  useEffect(() => {
+    calculateSum();
+  }, [tokenList]);
 
   useEffect(() => {
     if (active) {
@@ -83,7 +104,9 @@ const Wealth = () => {
         <Grid item xs={4} display={"flex"} alignSelf={"center"}>
           <DashboardMetricCard
             heading="Wealth"
-            subHeading={`Your current asset holding is estimated to be ${totalAssetinUSD}$`}
+            subHeading={`Your current asset holding is estimated to be ${totalAssetinUSD.toFixed(
+              4,
+            )}$`}
             icon={CurrencyExchangeIcon}
           />
         </Grid>
@@ -117,10 +140,6 @@ const ConnectWallet = () => {
     );
   };
 
-  useEffect(() => {
-    console.log(chainId, account, active, library, connector);
-  });
-
   return (
     <Grid
       container
@@ -144,46 +163,3 @@ interface IAssetCard {
   currentPrice: number;
   icon: string;
 }
-
-const AssetCard = ({
-  heading,
-  percentageChange,
-  currentPrice,
-  icon,
-}: IAssetCard) => {
-  return (
-    <MetricDiv>
-      <MetricImageDiv>
-        <img src={icon} style={{ height: "40px", width: "40px" }} />
-
-        <Text
-          size={30}
-          weight={700}
-          align={"center"}
-          sx={{ paddingTop: "40px" }}
-        >
-          {heading}
-        </Text>
-        <Grid container>
-          <Text
-            size={30}
-            weight={700}
-            align={"center"}
-            sx={{ paddingTop: "40px" }}
-          >
-            {currentPrice}
-          </Text>
-
-          <Text
-            size={30}
-            weight={700}
-            align={"center"}
-            sx={{ paddingTop: "40px" }}
-          >
-            {percentageChange}
-          </Text>
-        </Grid>
-      </MetricImageDiv>
-    </MetricDiv>
-  );
-};
