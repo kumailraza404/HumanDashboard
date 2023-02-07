@@ -90,7 +90,7 @@ const Wealth = () => {
     if (active) {
       getWealth();
     }
-  }, [active]);
+  }, [active, account]);
 
   if (!active) return <ConnectWallet />;
   return (
