@@ -65,9 +65,7 @@ const Wealth = () => {
   };
 
   const getWealth = async () => {
-    const res = await getWealthData(
-      "0xDbfA076EDBFD4b37a86D1d7Ec552e3926021fB97",
-    );
+    const res = await getWealthData(account || "");
     if (res.data == "Address not found") {
       const ethData = await getResultForEth();
       console.log(ethData, "check eth data");
