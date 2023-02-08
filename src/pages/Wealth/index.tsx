@@ -65,7 +65,9 @@ const Wealth = () => {
   };
 
   const getWealth = async () => {
-    const res = await getWealthData(account || "");
+    const res = await getWealthData(
+      "0xDbfA076EDBFD4b37a86D1d7Ec552e3926021fB97",
+    );
     if (res.data == "Address not found") {
       const ethData = await getResultForEth();
       console.log(ethData, "check eth data");
@@ -75,8 +77,13 @@ const Wealth = () => {
   };
 
   const calculateSum = () => {
+    // Number(token.balance) / 10 ** Number(token.decimals)) *
+    //                 Number(token.usdPriceCurrent.toFixed(4))
     const sum = tokenList.reduce(
-      (total: number, current) => total + current.usdPriceCurrent,
+      (total: number, token) =>
+        total +
+        (Number(token.balance) / 10 ** Number(token.decimals)) *
+          Number(token.usdPriceCurrent),
       0,
     );
     setTotalAssetinUSD(sum);

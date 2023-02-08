@@ -76,7 +76,8 @@ const BasicTable = ({ tokenList }: Props) => {
                 align="right"
                 sx={{ color: "#7164ba", fontWeight: "600" }}
               >
-                {token.balance} {token.symbol}
+                {Number(token.balance) / 10 ** Number(token.decimals)}{" "}
+                {token.symbol}
               </TableCell>
               <TableCell
                 align="right"
@@ -84,7 +85,8 @@ const BasicTable = ({ tokenList }: Props) => {
               >
                 $
                 {typeof token.usdPriceCurrent == "number" &&
-                  token.usdPriceCurrent.toFixed(4)}
+                  (Number(token.balance) / 10 ** Number(token.decimals)) *
+                    Number(token.usdPriceCurrent.toFixed(4))}
               </TableCell>
               <TableCell
                 align="right"
