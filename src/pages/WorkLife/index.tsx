@@ -127,13 +127,18 @@ const WorkLife = () => {
         event.summary.includes("happy") ||
         event.summary.includes("hangout") ||
         event.summary.includes("friend") ||
-        event.summary.includes("Hanging")
+        event.summary.includes("Hanging") ||
+        event.summary.includes("dinner") ||
+        event.summary.includes("lunch") ||
+        event.summary.includes("breakfast") ||
+        event.summary.includes("outing") ||
+        event.summary.includes("picnic")
       ) {
         obj.name = event.summary;
         obj.duration =
           (new Date(event.end.dateTime).valueOf() -
             new Date(event.start.dateTime).valueOf()) /
-          60000;
+          (1000 * 60 * 60);
         tempHappiness.push(obj);
       } else {
         obj.name = event.summary;
@@ -154,15 +159,12 @@ const WorkLife = () => {
     if (res.items.length) formatResult(res.items as ResponseEvent[]);
   };
 
-  const arr = new Array(7).fill(1);
-
   useEffect(() => {
     if (workHours <= 8) {
-      console.log("worksdkas", workHours);
-      const temp = (workHours / 8 / 33) * 10;
+      const temp = (workHours / 8 / 20) * 10;
       setWorkHoursinPercent(temp);
     } else if (workHours > 8 && workHours <= 12) {
-      const temp = (workHours / 8 / 33) * 10;
+      const temp = (workHours / 12 / 12.5) * 10;
       setWorkHoursinPercent(temp);
     } else {
       setWorkHoursinPercent(1);
@@ -171,11 +173,10 @@ const WorkLife = () => {
 
   useEffect(() => {
     if (happinessHours <= 8) {
-      console.log("worksdkas", happinessHours);
-      const temp = (happinessHours / 8 / 33) * 10;
+      const temp = (happinessHours / 8 / 20) * 10;
       setHappinessHoursinPercent(temp);
     } else if (happinessHours > 8 && happinessHours <= 12) {
-      const temp = (happinessHours / 8 / 33) * 10;
+      const temp = (happinessHours / 12 / 12.5) * 10;
       setHappinessHoursinPercent(temp);
     } else {
       setHappinessHoursinPercent(1);
@@ -225,12 +226,13 @@ const WorkLife = () => {
               align={"center"}
               sx={{ paddingTop: "10px" }}
             >
-              {workHours} hour(s) spent working today
+              {Number(workHours).toFixed(2)} hour(s) spent working today
             </Text>
             <Grid>
               <GaugeChart
                 id="gauge-chart1"
                 nrOfLevels={3}
+                arcsLength={[0.5, 0.3, 0.2]}
                 percent={workHoursinPercent}
                 hideText
                 // needleColor={"#7164ba"}
@@ -269,7 +271,8 @@ const WorkLife = () => {
               align={"center"}
               sx={{ paddingTop: "10px" }}
             >
-              {happinessHours} hour(s) spend being happy today
+              {Number(happinessHours).toFixed(2)} hour(s) spent being happy
+              today
             </Text>
             <Grid>
               <GaugeChart
@@ -277,9 +280,7 @@ const WorkLife = () => {
                 nrOfLevels={3}
                 percent={happinessHoursinPercent}
                 hideText
-                // needleColor={"#7164ba"}
-                // needleBaseColor={"#7164ba"}
-
+                arcsLength={[0.5, 0.3, 0.2]}
                 style={{
                   height: 100,
                   width: 250,
