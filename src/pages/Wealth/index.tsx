@@ -71,17 +71,11 @@ const Wealth = () => {
       console.log(ethData, "check eth data");
       if (parseFloat(ethData.balance) > 0) setTokenList([ethData]);
     } else formatResult(res);
-    // await getResultForEth();
   };
 
   const calculateSum = () => {
-    // Number(token.balance) / 10 ** Number(token.decimals)) *
-    //                 Number(token.usdPriceCurrent.toFixed(4))
     const sum = tokenList.reduce(
-      (total: number, token) =>
-        total +
-        (Number(token.balance) / 10 ** Number(token.decimals)) *
-          Number(token.usdPriceCurrent),
+      (total: number, current) => total + current.usdPriceCurrent,
       0,
     );
     setTotalAssetinUSD(sum);

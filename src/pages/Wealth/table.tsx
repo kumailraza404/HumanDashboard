@@ -32,19 +32,19 @@ const BasicTable = ({ tokenList }: Props) => {
               align="right"
               sx={{ color: "#FFFFFF", fontWeight: "600", fontSize: "16px" }}
             >
-              Balance
+              Amount
             </TableCell>
             <TableCell
               align="right"
               sx={{ color: "#FFFFFF", fontWeight: "600", fontSize: "16px" }}
             >
-              Balance in USD
+              USD Value
             </TableCell>
             <TableCell
               align="right"
               sx={{ color: "#FFFFFF", fontWeight: "600", fontSize: "16px" }}
             >
-              % in 24 Hours
+              % change in 24 Hours
             </TableCell>
           </TableRow>
         </TableHead>
@@ -76,8 +76,7 @@ const BasicTable = ({ tokenList }: Props) => {
                 align="right"
                 sx={{ color: "#7164ba", fontWeight: "600" }}
               >
-                {Number(token.balance) / 10 ** Number(token.decimals)}{" "}
-                {token.symbol}
+                {Number(token.balance).toFixed(4)} {token.symbol}
               </TableCell>
               <TableCell
                 align="right"
@@ -85,8 +84,7 @@ const BasicTable = ({ tokenList }: Props) => {
               >
                 $
                 {typeof token.usdPriceCurrent == "number" &&
-                  (Number(token.balance) / 10 ** Number(token.decimals)) *
-                    Number(token.usdPriceCurrent.toFixed(4))}
+                  Number(token.usdPriceCurrent.toFixed(4))}
               </TableCell>
               <TableCell
                 align="right"
