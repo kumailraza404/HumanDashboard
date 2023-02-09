@@ -74,7 +74,7 @@ export const Text = styled("div", {
     customStyle,
     isClickable = false,
   }) => ({
-    fontFamily: "PPMori", // this is working now
+    fontFamily: "Roboto", // this is working now
     fontWeight: weight,
     fontSize: size,
     lineHeight: lineHeight,
