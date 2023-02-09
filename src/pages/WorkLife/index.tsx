@@ -203,8 +203,15 @@ const WorkLife = () => {
 
   return (
     <Grid>
-      <Grid container display={"flex"} columnSpacing={4}>
-        <Grid item xs={6} display={"flex"} justifyContent={"center"}>
+      <Grid container display={"flex"} flexDirection={"column"}>
+        <Grid
+          item
+          xs={6}
+          display={"flex"}
+          justifyContent={"center"}
+          alignSelf={"center"}
+          sx={{ width: "50vw" }}
+        >
           <MetricDiv>
             <MetricImageDiv>
               <SvgIcon
@@ -249,7 +256,14 @@ const WorkLife = () => {
           </MetricDiv>
         </Grid>
 
-        <Grid item xs={6} display={"flex"} justifyContent={"center"}>
+        <Grid
+          item
+          xs={6}
+          display={"flex"}
+          justifyContent={"center"}
+          alignSelf={"center"}
+          sx={{ width: "50vw", marginTop: "12vh" }}
+        >
           <MetricDiv>
             <MetricImageDiv>
               <SvgIcon
