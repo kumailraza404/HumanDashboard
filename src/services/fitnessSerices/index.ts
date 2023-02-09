@@ -110,6 +110,17 @@ export const getWeeklyActivityData = async () => {
   );
 };
 
+export const getDailyBikingData = async () => {
+  const startToday = new Date(new Date().setUTCHours(0, 0, 0, 0)).toISOString();
+  const endToday = new Date(
+    new Date().setUTCHours(23, 59, 59, 999),
+  ).toISOString();
+
+  return await Axios.get(
+    `https://www.googleapis.com/fitness/v1/users/me/sessions?startTime=${startToday}&endTime=${endToday}&activityType=1`,
+  );
+};
+
 // const sum = result?.bucket[0]?.dataset[0]?.point?.reduce(
 //   (total, current) => {
 //     return total + parseFloat(current.value[0].fpVal);

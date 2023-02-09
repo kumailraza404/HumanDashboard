@@ -9,12 +9,12 @@ import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import { MetricDiv, MetricImageDiv } from "./styles";
 import { Text } from "../../styles";
 
-interface IEvent {
+export interface IEvent {
   name: string;
   duration: number;
 }
 
-interface ResponseEvent {
+export interface ResponseEvent {
   kind: string;
   etag: string;
   id: string;
@@ -153,7 +153,7 @@ const WorkLife = () => {
     setHappinessData(tempHappiness);
   };
 
-  const getCalendarDataForMonth = async () => {
+  const getCalendarDataForWeek = async () => {
     const res = await getCalendarData();
     console.log(res, "Check resss");
     if (res.items.length) formatResult(res.items as ResponseEvent[]);
@@ -198,7 +198,7 @@ const WorkLife = () => {
   }, [workData, happinessData]);
 
   useEffect(() => {
-    if (isSignedIn) getCalendarDataForMonth();
+    if (isSignedIn) getCalendarDataForWeek();
   }, []);
 
   return (
