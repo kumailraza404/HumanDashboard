@@ -82,7 +82,7 @@ export function getTotalHoursOfActivities(dates: string[], data: any) {
         normalizeData.walking[index] + parseFloat(duration.toFixed(2));
     }
 
-    if (segment.activityType == "35") {
+    if (segment.activityType == "8" || segment.activityType == "58") {
       normalizeData.running[index] =
         normalizeData.running[index] + parseFloat(duration.toFixed(2));
     }
