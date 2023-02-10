@@ -1,8 +1,13 @@
-import styled from "@emotion/styled";
+import { styled } from "@mui/system";
 
-export const MetricDiv = styled("div")(() => ({
+export const MetricDiv = styled("div")(({ theme }) => ({
   background: "#FFFFFF",
-  width: "50%",
+  [theme.breakpoints.down("md")]: {
+    width: "100%",
+  },
+  [theme.breakpoints.up("md")]: {
+    width: "50%",
+  },
   borderRadius: "20px",
   position: "relative",
   display: "flex",

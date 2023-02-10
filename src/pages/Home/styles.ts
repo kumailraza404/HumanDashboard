@@ -23,6 +23,7 @@ export const MetricDiv = styled("div", {
   display: "flex",
   flexDirection: "column",
   boxShadow: "10px 5px 5px rgba(0,0,0,0.2)",
+  padding: "0px 10px",
 }));
 
 export const MetricImageDiv = styled("div")(() => ({

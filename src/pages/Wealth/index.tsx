@@ -106,7 +106,7 @@ const Wealth = () => {
         justifyContent={"center"}
         marginBottom={12}
       >
-        <Grid item xs={4} display={"flex"} alignSelf={"center"}>
+        <Grid item xs={12} md={4} display={"flex"} alignSelf={"center"}>
           <DashboardMetricCard
             heading="Wealth"
             subHeading={

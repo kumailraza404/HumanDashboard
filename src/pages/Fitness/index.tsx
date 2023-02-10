@@ -20,6 +20,7 @@ import { getDates, getTotalHoursOfActivities } from "../../utils";
 import { OverviewGraphWrapper } from "./styles";
 import { Stack } from "@mui/system";
 import DashboardMetricCard from "../../components/DashboardMetricCard";
+import { SleepGraphHeader } from "../../components/SleepGraphWithRangeSlider/styles";
 
 const options: ApexCharts.ApexOptions = {
   chart: {
@@ -200,13 +201,17 @@ const Fitness = () => {
       >
         <Grid item xs={12}>
           <OverviewGraphWrapper>
-            <Stack
+            <SleepGraphHeader
               direction="row"
               justifyContent="space-between"
               alignItems="center"
               paddingX="10px"
             >
-              <Text customColor="#FFFFFF" size={30}>
+              <Text
+                customColor="#FFFFFF"
+                size={30}
+                sx={{ marginBottom: "1em" }}
+              >
                 Activity Overview
               </Text>
               <ToggleButtonGroup
@@ -228,7 +233,7 @@ const Fitness = () => {
                   </Text>
                 </ToggleButton>
               </ToggleButtonGroup>
-            </Stack>
+            </SleepGraphHeader>
             <ReactApexChart
               options={options}
               series={series}
@@ -239,8 +244,14 @@ const Fitness = () => {
           </OverviewGraphWrapper>
         </Grid>
       </Grid>
-      <Grid container display={"flex"} marginTop={12} columnSpacing={4}>
-        <Grid item xs={3}>
+      <Grid
+        container
+        display={"flex"}
+        marginTop={12}
+        columnSpacing={4}
+        rowSpacing={6}
+      >
+        <Grid item xs={12} md={3}>
           <DashboardMetricCard
             heading={`Calories Burned`}
             subHeading={`${caloriesBurned.toFixed(2)} in kcal`}
@@ -249,7 +260,7 @@ const Fitness = () => {
           />
         </Grid>
 
-        <Grid item xs={3}>
+        <Grid item xs={12} md={3}>
           <DashboardMetricCard
             heading={`Hydration`}
             subHeading={`${hydration.toFixed(2)} litres`}
@@ -258,7 +269,7 @@ const Fitness = () => {
           />
         </Grid>
 
-        <Grid item xs={3}>
+        <Grid item xs={12} md={3}>
           <DashboardMetricCard
             heading={`Distance Covered`}
             subHeading={`${distanceCovered.toFixed(2)} meters`}
@@ -267,7 +278,7 @@ const Fitness = () => {
           />
         </Grid>
 
-        <Grid item xs={3}>
+        <Grid item xs={12} md={3}>
           <DashboardMetricCard
             heading={`Heart Points`}
             subHeading={`${heartPts.toFixed(2)} pts`}
