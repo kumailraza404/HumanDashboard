@@ -5,6 +5,7 @@ import GaugeChart from "react-gauge-chart";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/reducer";
 import WorkIcon from "@mui/icons-material/Work";
+import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import { MetricDiv, MetricImageDiv } from "./styles";
 import { Text } from "../../styles";
@@ -203,111 +204,150 @@ const WorkLife = () => {
 
   return (
     <Grid>
-      <Grid container display={"flex"} flexDirection={"column"}>
-        <Grid
-          item
-          xs={6}
-          display={"flex"}
-          justifyContent={"center"}
-          alignSelf={"center"}
-          sx={{ width: "50vw" }}
-        >
-          <MetricDiv>
-            <MetricImageDiv>
-              <SvgIcon
-                component={WorkIcon}
-                sx={{ color: "#FFFFFF", height: "40px", width: "40px" }}
-              />
-            </MetricImageDiv>
-            <Text
-              size={30}
-              weight={700}
-              align={"center"}
-              sx={{ paddingTop: "40px" }}
-            >
-              Work Hours
-            </Text>
-            <Text
-              size={18}
-              weight={400}
-              align={"center"}
-              sx={{ paddingTop: "10px" }}
-            >
-              {Number(workHours).toFixed(2)} hour(s) spent working today
-            </Text>
-            <Grid>
-              <GaugeChart
-                id="gauge-chart1"
-                nrOfLevels={3}
-                arcsLength={[0.5, 0.3, 0.2]}
-                percent={workHoursinPercent}
-                hideText
-                // needleColor={"#7164ba"}
-                // needleBaseColor={"#7164ba"}
+      <Grid display={"flex"} justifyContent={"center"}>
+        <MetricDiv>
+          <MetricImageDiv>
+            <SvgIcon
+              component={WorkIcon}
+              sx={{ color: "#FFFFFF", height: "40px", width: "40px" }}
+            />
+          </MetricImageDiv>
+          <Text
+            size={30}
+            weight={700}
+            align={"center"}
+            sx={{ paddingTop: "40px" }}
+          >
+            Work Hours
+          </Text>
+          <Text
+            size={18}
+            weight={400}
+            align={"center"}
+            sx={{ paddingTop: "10px" }}
+          >
+            {Number(workHours).toFixed(2)} hour(s) spent working today
+          </Text>
+          <Grid
+            alignSelf={"center"}
+            display={"flex"}
+            flexDirection={"column"}
+            alignItems={"center"}
+          >
+            <GaugeChart
+              id="gauge-chart1"
+              nrOfLevels={3}
+              arcsLength={[0.5, 0.3, 0.2]}
+              percent={workHoursinPercent}
+              hideText
+              // needleColor={"#7164ba"}
+              // needleBaseColor={"#7164ba"}
 
-                style={{
-                  height: 100,
-                  width: 250,
-                  paddingTop: "20px",
-                  paddingBottom: "20px",
-                }}
-              />
-            </Grid>
-          </MetricDiv>
-        </Grid>
+              style={{
+                height: 100,
+                width: 250,
+                paddingTop: "20px",
+                paddingBottom: "20px",
+                alignSelf: "center",
+              }}
+            />
+            {workHours >= 8 && <BurnOutPrompt />}
+          </Grid>
+        </MetricDiv>
+      </Grid>
 
-        <Grid
-          item
-          xs={6}
-          display={"flex"}
-          justifyContent={"center"}
-          alignSelf={"center"}
-          sx={{ width: "50vw", marginTop: "12vh" }}
-        >
-          <MetricDiv>
-            <MetricImageDiv>
-              <SvgIcon
-                component={EmojiEmotionsIcon}
-                sx={{ color: "#FFFFFF", height: "40px", width: "40px" }}
-              />
-            </MetricImageDiv>
-            <Text
-              size={30}
-              weight={700}
-              align={"center"}
-              sx={{ paddingTop: "40px" }}
-            >
-              Happy Hours
-            </Text>
-            <Text
-              size={18}
-              weight={400}
-              align={"center"}
-              sx={{ paddingTop: "10px" }}
-            >
-              {Number(happinessHours).toFixed(2)} hour(s) spent being happy
-              today
-            </Text>
-            <Grid>
-              <GaugeChart
-                id="gauge-chart1"
-                nrOfLevels={3}
-                percent={happinessHoursinPercent}
-                hideText
-                arcsLength={[0.5, 0.3, 0.2]}
-                style={{
-                  height: 100,
-                  width: 250,
-                  paddingTop: "20px",
-                  paddingBottom: "20px",
-                }}
-              />
-            </Grid>
-          </MetricDiv>
-        </Grid>
+      <Grid
+        display={"flex"}
+        sx={{ marginTop: "12vh" }}
+        justifyContent={"center"}
+      >
+        <MetricDiv>
+          <MetricImageDiv>
+            <SvgIcon
+              component={EmojiEmotionsIcon}
+              sx={{ color: "#FFFFFF", height: "40px", width: "40px" }}
+            />
+          </MetricImageDiv>
+          <Text
+            size={30}
+            weight={700}
+            align={"center"}
+            sx={{ paddingTop: "40px" }}
+          >
+            Happy Hours
+          </Text>
+          <Text
+            size={18}
+            weight={400}
+            align={"center"}
+            sx={{ paddingTop: "10px" }}
+          >
+            {Number(happinessHours).toFixed(2)} hour(s) spent being happy today
+          </Text>
+          <Grid
+            alignSelf={"center"}
+            display={"flex"}
+            flexDirection={"column"}
+            alignItems={"center"}
+          >
+            <GaugeChart
+              id="gauge-chart1"
+              nrOfLevels={3}
+              percent={happinessHoursinPercent}
+              hideText
+              arcsLength={[0.5, 0.3, 0.2]}
+              style={{
+                height: 100,
+                width: 250,
+                paddingTop: "20px",
+                paddingBottom: "20px",
+              }}
+            />
+          </Grid>
+        </MetricDiv>
       </Grid>
     </Grid>
   );
 };
 
 export default WorkLife;
+
+const BurnOutPrompt = () => {
+  return (
+    <Grid
+      sx={{
+        marginTop: "20px",
+        border: "2px solid rgb(255,0,0,0.6)",
+        borderRadius: "10px",
+        // height: "50px",
+        overflow: "hidden",
+      }}
+      display={"flex"}
+      flexDirection={"row"}
+    >
+      <div
+        style={{
+          width: "40px",
+          height: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <SvgIcon
+          component={ReportProblemIcon}
+          sx={{ color: "rgb(255,0,0,0.6)", height: "25px", width: "25px" }}
+        />
+      </div>
+      <Text
+        size={18}
+        weight={400}
+        align={"center"}
+        sx={{ padding: "10px 20px" }}
+        customColor={"rgb(255,0,0,0.6)"}
+      >
+        You are burning out. Take some rest!
+      </Text>
+    </Grid>
+  );
+};

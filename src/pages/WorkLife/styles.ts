@@ -2,13 +2,12 @@ import styled from "@emotion/styled";
 
 export const MetricDiv = styled("div")(() => ({
   background: "#FFFFFF",
-  width: "100%",
+  width: "50%",
   borderRadius: "20px",
   position: "relative",
   display: "flex",
   flexDirection: "column",
   padding: "10px 20px",
-  alignItems: "center",
   boxShadow: "10px 5px 5px rgba(0,0,0,0.2)",
 }));
 
