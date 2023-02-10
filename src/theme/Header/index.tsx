@@ -23,7 +23,6 @@ export default function Header() {
   const dispatch = useDispatch();
   const scopes = [
     "https://www.googleapis.com/auth/fitness.activity.read",
-    "https://www.googleapis.com/auth/fitness.activity.write",
     "https://www.googleapis.com/auth/calendar.readonly",
     "https://www.googleapis.com/auth/calendar.settings.readonly",
     "https://www.googleapis.com/auth/calendar",

@@ -85,7 +85,7 @@ const Home = () => {
         <Grid item xs={4}>
           <DashboardMetricCard
             heading="Total Assets"
-            subHeading={`$` + `${totalBalanceInUSD.toFixed(4)}`}
+            subHeading={`$` + `${totalBalanceInUSD}`}
             icon={AttachMoneyIcon}
           />
         </Grid>
