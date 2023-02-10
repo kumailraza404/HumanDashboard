@@ -28,12 +28,17 @@ const DailySleepSegmentChart = () => {
     legend: {
       position: "left",
       offsetY: 100,
+      offsetX: 200,
+      fontSize: "16px",
+      itemMargin: {
+        horizontal: 10,
+        // vertical: 20,
+      },
     },
   };
 
   function calculateDuration(data: any) {
     let durations = new Array(7).fill(0);
-    console.log(data, "check data");
     for (let i = 0; i < data.bucket.length; i++) {
       for (let j = 0; j < data.bucket[i].dataset.length; j++) {
         for (let k = 0; k < data.bucket[i].dataset[j].point.length; k++) {
@@ -50,6 +55,7 @@ const DailySleepSegmentChart = () => {
   }
   const getTodaysSleepData = async () => {
     const result = await getTodaysSleepSegements();
+    console.log(result, "From todays sleep data segments");
 
     calculateDuration(result);
   };
@@ -62,14 +68,15 @@ const DailySleepSegmentChart = () => {
     }
   }, [isSignedIn]);
 
-  if (series.every(checkIfZero)) return <UnableToFetch />;
+  // if (series.every(checkIfZero)) return <UnableToFetch />;
+  // showing deep sleep if no sleep segments are available for last night
   return (
     <ReactApexChart
       options={options}
-      series={series || new Array(7).fill(0)}
+      series={series.every(checkIfZero) ? [0, 0, 1, 0, 0, 0] : series}
       type="donut"
       height={300}
-      widtgh={"100%"}
+      width={"100%"}
     />
   );
 };
