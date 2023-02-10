@@ -1,4 +1,4 @@
-import { Box, Grid, SvgIcon } from "@mui/material";
+import { Box, CircularProgress, Grid, SvgIcon } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
@@ -31,6 +31,7 @@ export interface TokenDetails {
 const Wealth = () => {
   const [tokenList, setTokenList] = useState<TokenDetails[]>([]);
   const [totalAssetinUSD, setTotalAssetinUSD] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const { chainId, account, activate, deactivate, setError, active } =
     useWeb3React<Web3Provider>();
@@ -65,12 +66,15 @@ const Wealth = () => {
   };
 
   const getWealth = async () => {
+    setLoading(true);
     const res = await getWealthData(account || "");
     if (res.data == "Address not found" || res.data.length == 0) {
       const ethData = await getResultForEth();
       console.log(ethData, "check eth data");
       if (parseFloat(ethData.balance) > 0) setTokenList([ethData]);
     } else formatResult(res);
+
+    setLoading(false);
   };
 
   const calculateSum = () => {
@@ -105,17 +109,31 @@ const Wealth = () => {
         <Grid item xs={4} display={"flex"} alignSelf={"center"}>
           <DashboardMetricCard
             heading="Wealth"
-            subHeading={`Your current asset holding is estimated to be ${totalAssetinUSD.toFixed(
-              4,
-            )}$`}
+            subHeading={
+              loading
+                ? `Your current asset holding is estimated to be ...`
+                : `Your current asset holding is estimated to be ${totalAssetinUSD.toFixed(
+                    4,
+                  )}$`
+            }
             icon={CurrencyExchangeIcon}
           />
         </Grid>
       </Grid>
-
-      <Grid container>
-        {tokenList.length && <BasicTable tokenList={tokenList} />}
-      </Grid>
+      {loading ? (
+        <Grid
+          container
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
+          <CircularProgress />
+        </Grid>
+      ) : (
+        <Grid container>
+          {tokenList.length && <BasicTable tokenList={tokenList} />}
+        </Grid>
+      )}
     </Grid>
   );
 };
