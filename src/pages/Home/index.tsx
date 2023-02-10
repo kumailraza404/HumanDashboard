@@ -1,6 +1,6 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Grid, SvgIcon } from "@mui/material";
-import DirectionsBikeIcon from "@mui/icons-material/DirectionsBike";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import BedtimeIcon from "@mui/icons-material/Bedtime";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import OverviewGraph from "../../components/OverviewGraph";
@@ -8,20 +8,38 @@ import DailyJogging from "../../components/DailyJogging";
 import OverviewWork from "../../components/OverviewWork";
 import DashboardMetricCard from "../../components/DashboardMetricCard";
 import ReactApexChart from "react-apexcharts";
+import { useWeb3React } from "@web3-react/core";
+import { Web3Provider } from "@ethersproject/providers";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/reducer";
+import { getTotalWealth } from "../../services/wealthServices";
+import { setTotalBalanceInUSD } from "../../store/slice/wealthSlice";
 
 const Home = () => {
   const [sleephours, setSleepHours] = useState(0);
+  const [happyHours, setHappyHours] = useState(0);
   const [dailyStepsForTheDay, setDailyStepsForTheDay] = useState(0);
+  const { totalBalanceInUSD } = useSelector((state: RootState) => state.wealth);
+  const dispatch = useDispatch();
+  console.log(totalBalanceInUSD, "totalBalanceInUSD yeh bana abhi");
 
-  const sleepProgress = useMemo(() => {
-    if (sleephours) {
-      if (sleephours > 8) {
-        return 100;
-      }
-      return (sleephours / 8) * 100;
+  const { account, active } = useWeb3React<Web3Provider>();
+
+  const getTotalWealthOfUser = async () => {
+    try {
+      const response = await getTotalWealth(account || "");
+      console.log("response getTotalWealthOfUser", response);
+      dispatch(setTotalBalanceInUSD(response.data.total));
+    } catch (e) {
+      console.log("unable to get balance for user");
     }
-    return 0;
-  }, [sleephours]);
+  };
+
+  useEffect(() => {
+    if (active && totalBalanceInUSD == 0) {
+      getTotalWealthOfUser();
+    }
+  }, [active, account]);
 
   return (
     <Grid>
@@ -46,7 +64,7 @@ const Home = () => {
             setDailyStepsForTheDay={setDailyStepsForTheDay}
             dailyStepsForTheDay={dailyStepsForTheDay}
           />
-          <OverviewWork />
+          <OverviewWork setHappyHours={setHappyHours} />
         </Grid>
       </Grid>
 
@@ -59,13 +77,6 @@ const Home = () => {
       >
         <Grid item xs={4}>
           <DashboardMetricCard
-            heading="Bicycle Drill"
-            subHeading="10KM/day"
-            icon={DirectionsBikeIcon}
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <DashboardMetricCard
             heading="Sleepy Hours"
             subHeading={`${sleephours} hours`}
             icon={BedtimeIcon}
@@ -73,8 +84,15 @@ const Home = () => {
         </Grid>
         <Grid item xs={4}>
           <DashboardMetricCard
+            heading="Total Assets"
+            subHeading={`$` + `${totalBalanceInUSD.toFixed(4)}`}
+            icon={AttachMoneyIcon}
+          />
+        </Grid>
+        <Grid item xs={4}>
+          <DashboardMetricCard
             heading="Happy Hours"
-            subHeading="4 hangouts / week"
+            subHeading={`${happyHours}`}
             icon={EmojiEmotionsIcon}
           />
         </Grid>
