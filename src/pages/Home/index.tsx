@@ -48,17 +48,20 @@ const Home = () => {
         display={"flex"}
         justifyContent={"space-between"}
         columnSpacing={4}
+        rowSpacing={4}
       >
-        <Grid item xs={8}>
+        <Grid item md={8} xs={12}>
           <OverviewGraph setSleepHoursForToday={setSleepHours} />
         </Grid>
         <Grid
           item
-          xs={4}
+          md={4}
+          xs={12}
           display={"flex"}
           flexDirection={"column"}
           justifyContent={"space-between"}
           rowSpacing={4}
+          columnSpacing={4}
         >
           <DailyJogging
             setDailyStepsForTheDay={setDailyStepsForTheDay}
@@ -74,22 +77,23 @@ const Home = () => {
         justifyContent={"space-between"}
         marginTop={12}
         columnSpacing={4}
+        rowSpacing={8}
       >
-        <Grid item xs={4}>
+        <Grid item xs={12} md={4}>
           <DashboardMetricCard
             heading="Sleepy Hours"
             subHeading={`${sleephours} hours`}
             icon={BedtimeIcon}
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} md={4}>
           <DashboardMetricCard
             heading="Total Assets"
             subHeading={`$` + `${totalBalanceInUSD}`}
             icon={AttachMoneyIcon}
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} md={4}>
           <DashboardMetricCard
             heading="Happy Hours"
             subHeading={`${happyHours}`}

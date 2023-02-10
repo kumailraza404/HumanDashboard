@@ -8,7 +8,11 @@ import {
   OverviewWorkHeading,
   OverviewWork as StyledOverviewWork,
 } from "./styles";
-import { StepIconDiv } from "../DailyJogging/styles";
+import {
+  OverviewSteps,
+  StepDetailDiv,
+  StepIconDiv,
+} from "../DailyJogging/styles";
 import { Text } from "../../styles";
 import { getCalendarData } from "../../services/calendarServices";
 import { IEvent, ResponseEvent } from "../../pages/WorkLife";
@@ -65,32 +69,47 @@ const OverviewWork = ({ setHappyHours }: IOverviewWork) => {
   }, [isSignedIn]);
 
   return (
-    <StyledOverviewWork>
-      <OverviewWorkHeading>
-        <StepIconDiv>
-          <SvgIcon
-            component={WorkIcon}
-            sx={{ color: "white", height: "45px", width: "45px" }}
-          />
-        </StepIconDiv>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            marginRight: "20px",
-          }}
-        >
-          <Text customColor="#FFFFFF" size={28} weight={700}>
-            Work Completed
-          </Text>
-        </div>
-      </OverviewWorkHeading>
-      <OverviewWorkDetail>
-        <Text customColor="#FFFFFF" size={22} align={"center"}>
-          {totalTasks} hours of tasks
+    // <StyledOverviewWork>
+    //   <OverviewWorkHeading>
+    //     <StepIconDiv>
+    //       <SvgIcon
+    //         component={WorkIcon}
+    //         sx={{ color: "white", height: "45px", width: "45px" }}
+    //       />
+    //     </StepIconDiv>
+    //     <div
+    //       style={{
+    //         display: "flex",
+    //         flexDirection: "column",
+    //       }}
+    //     >
+    //       <Text customColor="#FFFFFF" size={28} weight={700}>
+    //         Work Completed
+    //       </Text>
+    //     </div>
+    //   </OverviewWorkHeading>
+    //   <OverviewWorkDetail>
+    //     <Text customColor="#FFFFFF" size={22} align={"center"}>
+    //       {totalTasks} hours of tasks
+    //     </Text>
+    //   </OverviewWorkDetail>
+    // </StyledOverviewWork>
+    <OverviewSteps sx={{ background: "#ec628e" }}>
+      <StepIconDiv>
+        <SvgIcon
+          component={WorkIcon}
+          sx={{ color: "white", height: "45px", width: "45px" }}
+        />
+      </StepIconDiv>
+      <StepDetailDiv>
+        <Text customColor="#FFFFFF" size={28} weight={700}>
+          Work Completed
         </Text>
-      </OverviewWorkDetail>
-    </StyledOverviewWork>
+        <Text customColor="#FFFFFF" size={22}>
+          {totalTasks} Hours
+        </Text>
+      </StepDetailDiv>
+    </OverviewSteps>
   );
 };
 

@@ -16,7 +16,12 @@ const Layout = ({ ...props }) => (
   >
     <Sidebar />
 
-    <Box>
+    <Box
+      sx={{
+        width: "90vw",
+        padding: "0px 20px",
+      }}
+    >
       <Header />
       <Box
         sx={{

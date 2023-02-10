@@ -9,6 +9,7 @@ import { store } from "./store/store";
 
 import { Web3ReactProvider } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
+import Theme from "./theme/MUI";
 
 function getLibrary(provider: any): Web3Provider {
   const library = new Web3Provider(provider);
@@ -25,7 +26,9 @@ function App() {
       <PersistGate persistor={persistor}>
         <GoogleOAuthProvider clientId={googleClientId}>
           <Web3ReactProvider getLibrary={getLibrary}>
+            {/* <Theme> */}
             <Router />
+            {/* </Theme> */}
           </Web3ReactProvider>
         </GoogleOAuthProvider>
       </PersistGate>

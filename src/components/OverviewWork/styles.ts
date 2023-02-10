@@ -6,6 +6,7 @@ export const OverviewWork = styled("div")(() => ({
   borderRadius: "20px",
   width: "100%",
   boxShadow: "10px 5px 5px rgba(0,0,0,0.2)",
+  marginTop: "2em",
 }));
 
 export const OverviewWorkHeading = styled("div")(() => ({

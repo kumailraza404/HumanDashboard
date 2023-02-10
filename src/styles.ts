@@ -64,7 +64,7 @@ export const Text = styled("div", {
   ({
     theme,
     size = 15,
-    weight = 500,
+    weight = 600,
     primary = true,
     dim = false,
     lineHeight = "normal",
@@ -72,11 +72,11 @@ export const Text = styled("div", {
     opacity = 1,
     align = "left",
     customStyle,
-    isClickable = false,
+    isClickable = true,
   }) => ({
     fontFamily: "Roboto", // this is working now
     fontWeight: weight,
-    fontSize: size,
+    fontSize: `${size / 18}em`,
     lineHeight: lineHeight,
     opacity: dim ? 0.5 : opacity,
     textAlign: align,

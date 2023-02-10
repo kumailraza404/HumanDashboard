@@ -8,10 +8,12 @@ import { getTodaysSleepSegements } from "../../services/sleepServices";
 import { current } from "@reduxjs/toolkit";
 import ErrorIcon from "@mui/icons-material/Error";
 import { Text } from "../../styles";
-import { SvgIcon } from "@mui/material";
+import { SvgIcon, useMediaQuery, useTheme } from "@mui/material";
 import { UnableDiv } from "./styles";
 
 const DailySleepSegmentChart = () => {
+  const theme = useTheme();
+  const isMobileScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [series, setSeries] = React.useState<any>(new Array(7).fill(0));
   const { isSignedIn } = useSelector((state: RootState) => state.user);
 
@@ -26,9 +28,9 @@ const DailySleepSegmentChart = () => {
       "REM",
     ],
     legend: {
-      position: "left",
-      offsetY: 100,
-      offsetX: 200,
+      position: isMobileScreen ? "top" : "left",
+      offsetY: isMobileScreen ? 1 : 100,
+      offsetX: isMobileScreen ? 2 : 200,
       fontSize: "16px",
       itemMargin: {
         horizontal: 10,

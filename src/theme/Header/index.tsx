@@ -1,7 +1,14 @@
 import React, { useEffect } from "react";
 import { Button, Text } from "../../styles";
 import { useGoogleLogin } from "@react-oauth/google";
-import { HeaderStyled, ProfileCircle } from "./styles";
+import {
+  ConnectWalletContainer,
+  HeaderButtons,
+  HeaderChild,
+  HeaderChild2,
+  HeaderStyled,
+  ProfileCircle,
+} from "./styles";
 import Axios from "../../services/axiox";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -15,8 +22,12 @@ import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 import { formatAddress, injected } from "../../utils/index";
 import { UserRejectedRequestError } from "@web3-react/injected-connector";
+import TemporaryDrawer from "../Drawer";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 export default function Header() {
+  const theme = useTheme();
+  const isMobileScreen = useMediaQuery(theme.breakpoints.down("md"));
   const { isSignedIn, email, name, picture } = useSelector(
     (state: RootState) => state.user,
   );
@@ -56,22 +67,33 @@ export default function Header() {
   });
 
   return (
-    <HeaderStyled>
-      <Text size={20} weight={700}>
-        Human Dashboard
-      </Text>
+    <HeaderStyled container>
+      <HeaderChild
+        item
+        xs={12}
+        md={6}
+        justifyContent={"space-between"}
+        alignItems={"center"}
+      >
+        <Text size={20} weight={700}>
+          Human Dashboard
+        </Text>
+        <TemporaryDrawer />
 
-      <div style={{ display: "flex", height: "100%" }}>
+        {/* <Text size={20} weight={700}>
+          Human Dashboard
+        </Text> */}
+      </HeaderChild>
+
+      <HeaderChild2 item xs={12} md={6} display={"flex"}>
         <ConnectWallet />
 
         {isSignedIn ? (
           <ProfileCircle src={picture} referrerPolicy="no-referrer" />
         ) : (
-          <Button sx={{ marginLeft: "20px" }} onClick={() => login()}>
-            Sign In
-          </Button>
+          <Button onClick={() => login()}>Sign In</Button>
         )}
-      </div>
+      </HeaderChild2>
     </HeaderStyled>
   );
 }
@@ -108,12 +130,12 @@ const ConnectWallet = () => {
   };
 
   return (
-    <div>
+    <ConnectWalletContainer>
       {active && typeof account === "string" ? (
         <Button onClick={onClickDisconnect}>{formatAddress(account)}</Button>
       ) : (
         <Button onClick={onClickConnect}>Connect Wallet</Button>
       )}
-    </div>
+    </ConnectWalletContainer>
   );
 };

@@ -3,7 +3,7 @@ import ReactApexChart from "react-apexcharts";
 import { useSelector } from "react-redux";
 
 import { Text } from "../../styles";
-import { OverviewGraphWrapper } from "./styles";
+import { OverviewGraphWrapper, SleepGraphHeader } from "./styles";
 import { RootState } from "../../store/reducer";
 import {
   getMonthlySleepData,
@@ -131,13 +131,17 @@ const SleepGraphWithRangeSlider = ({
 
   return (
     <OverviewGraphWrapper>
-      <Stack
+      <SleepGraphHeader
         direction="row"
         justifyContent="space-between"
         alignItems="center"
         paddingX="10px"
       >
-        <Text customColor="#FFFFFF" size={30} sx={{ marginLeft: "2%" }}>
+        <Text
+          customColor="#FFFFFF"
+          size={30}
+          sx={{ marginLeft: "2%", marginBottom: "1em" }}
+        >
           Sleep Overview
         </Text>
         <ToggleButtonGroup
@@ -159,14 +163,14 @@ const SleepGraphWithRangeSlider = ({
             </Text>
           </ToggleButton>
         </ToggleButtonGroup>
-      </Stack>
+      </SleepGraphHeader>
 
       <ReactApexChart
         options={options}
         series={series}
         type="bar"
         height={350}
-        widtgh={"100%"}
+        width={"100%"}
       />
     </OverviewGraphWrapper>
   );
