@@ -24,7 +24,6 @@ const DailySleepSegmentChart = () => {
       "Deep sleep",
       "Out-of-bed",
       "Light sleep",
-      "Deep sleep",
       "REM",
     ],
     legend: {
@@ -35,6 +34,9 @@ const DailySleepSegmentChart = () => {
       itemMargin: {
         horizontal: 10,
         // vertical: 20,
+      },
+      labels: {
+        colors: ["red", "blue", "green", "orange", "yellow", "purple"],
       },
     },
   };

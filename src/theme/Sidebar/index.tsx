@@ -18,7 +18,7 @@ import { signOut } from "../../store/slice/userSlice";
 import { googleLogout } from "@react-oauth/google";
 
 export const navItems = [
-  { name: "Home", icon: DashboardIcon, link: "/" },
+  { name: "Dashboard", icon: DashboardIcon, link: "/" },
   { name: "Sleep", icon: NightShelterIcon, link: "/sleep" },
   { name: "Work Life", icon: WorkIcon, link: "/work-life" },
   { name: "Fitness", icon: FitnessCenterIcon, link: "/fitness" },

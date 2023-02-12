@@ -240,6 +240,7 @@ const WorkLife = () => {
               arcsLength={[0.5, 0.3, 0.2]}
               percent={workHoursinPercent}
               hideText
+              colors={["green", "yellow", "red"]}
               // needleColor={"#7164ba"}
               // needleBaseColor={"#7164ba"}
 
@@ -295,7 +296,8 @@ const WorkLife = () => {
               nrOfLevels={3}
               percent={happinessHoursinPercent}
               hideText
-              arcsLength={[0.5, 0.3, 0.2]}
+              arcsLength={[0.2, 0.3, 0.5]}
+              colors={["red", "yellow", "green"]}
               style={{
                 height: 100,
                 width: 250,

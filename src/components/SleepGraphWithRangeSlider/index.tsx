@@ -54,6 +54,13 @@ const options: ApexCharts.ApexOptions = {
   xaxis: {
     type: "datetime",
   },
+  yaxis: {
+    labels: {
+      formatter: function (n) {
+        return n.toFixed(2);
+      },
+    },
+  },
 };
 interface IOverviewGraph {
   setSleepHoursForToday?: (args: number) => void;

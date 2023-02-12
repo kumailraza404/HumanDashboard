@@ -79,24 +79,24 @@ const Home = () => {
         columnSpacing={4}
         rowSpacing={8}
       >
-        <Grid item xs={12} md={4}>
+        <Grid item xs={11} md={4}>
           <DashboardMetricCard
             heading="Sleepy Hours"
             subHeading={`${sleephours} hours`}
             icon={BedtimeIcon}
           />
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={11} md={4}>
           <DashboardMetricCard
             heading="Total Assets"
             subHeading={`$` + `${totalBalanceInUSD}`}
             icon={AttachMoneyIcon}
           />
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={11} md={4}>
           <DashboardMetricCard
             heading="Happy Hours"
-            subHeading={`${happyHours}`}
+            subHeading={`${happyHours} hours`}
             icon={EmojiEmotionsIcon}
           />
         </Grid>

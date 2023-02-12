@@ -94,7 +94,7 @@ const OverviewWork = ({ setHappyHours }: IOverviewWork) => {
     //     </Text>
     //   </OverviewWorkDetail>
     // </StyledOverviewWork>
-    <OverviewSteps sx={{ background: "#ec628e" }}>
+    <OverviewSteps sx={{ background: "#ec628e", marginTop: "2em" }}>
       <StepIconDiv>
         <SvgIcon
           component={WorkIcon}

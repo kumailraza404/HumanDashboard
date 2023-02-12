@@ -32,7 +32,7 @@ export const HeaderChild2 = styled(Grid)(({ theme }) => ({
   display: "flex",
   [theme.breakpoints.down("md")]: {
     justifyContent: "space-between",
-    marginTop: "2em",
+    marginTop: "0.2em",
   },
   [theme.breakpoints.up("md")]: {
     justifyContent: "flex-end",
