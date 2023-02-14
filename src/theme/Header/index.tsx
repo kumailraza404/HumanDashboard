@@ -20,7 +20,7 @@ import {
 import { RootState } from "../../store/reducer";
 import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
-import { formatAddress, injected } from "../../utils/index";
+import { formatAddress, injected, WalletConnect } from "../../utils/index";
 import { UserRejectedRequestError } from "@web3-react/injected-connector";
 import TemporaryDrawer from "../Drawer";
 import { useMediaQuery, useTheme } from "@mui/material";
@@ -112,7 +112,7 @@ const ConnectWallet = () => {
 
   const onClickConnect = () => {
     activate(
-      injected,
+      WalletConnect,
       (error) => {
         if (error instanceof UserRejectedRequestError) {
           // ignore user rejected error
