@@ -1,10 +1,17 @@
-import { Box, CircularProgress, Grid, SvgIcon } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  Grid,
+  SvgIcon,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 
-import { getBalanceOfEth, injected } from "../../utils/index";
+import { getBalanceOfEth, injected, WalletConnect } from "../../utils/index";
 import { UserRejectedRequestError } from "@web3-react/injected-connector";
 import { Button, Text } from "../../styles";
 import {
@@ -144,9 +151,11 @@ const ConnectWallet = () => {
   const { chainId, account, activate, setError, active, library, connector } =
     useWeb3React<Web3Provider>();
 
+  const theme = useTheme();
+  const isMobileScreen = useMediaQuery(theme.breakpoints.down("md"));
   const onClickConnect = () => {
     activate(
-      injected,
+      isMobileScreen ? WalletConnect : injected,
       (error) => {
         if (error instanceof UserRejectedRequestError) {
           // ignore user rejected error

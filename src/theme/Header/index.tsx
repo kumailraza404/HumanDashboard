@@ -20,7 +20,7 @@ import {
 import { RootState } from "../../store/reducer";
 import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
-import { formatAddress, injected } from "../../utils/index";
+import { formatAddress, injected, WalletConnect } from "../../utils/index";
 import { UserRejectedRequestError } from "@web3-react/injected-connector";
 import TemporaryDrawer from "../Drawer";
 import { useMediaQuery, useTheme } from "@mui/material";
@@ -109,10 +109,12 @@ const ConnectWallet = () => {
     library,
     connector,
   } = useWeb3React<Web3Provider>();
+  const theme = useTheme();
+  const isMobileScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const onClickConnect = () => {
     activate(
-      injected,
+      isMobileScreen ? WalletConnect : injected,
       (error) => {
         if (error instanceof UserRejectedRequestError) {
           // ignore user rejected error
