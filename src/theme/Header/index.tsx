@@ -109,10 +109,12 @@ const ConnectWallet = () => {
     library,
     connector,
   } = useWeb3React<Web3Provider>();
+  const theme = useTheme();
+  const isMobileScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const onClickConnect = () => {
     activate(
-      WalletConnect,
+      isMobileScreen ? WalletConnect : injected,
       (error) => {
         if (error instanceof UserRejectedRequestError) {
           // ignore user rejected error
