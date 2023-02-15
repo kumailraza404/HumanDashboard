@@ -24,6 +24,7 @@ import { formatAddress, injected, WalletConnect } from "../../utils/index";
 import { UserRejectedRequestError } from "@web3-react/injected-connector";
 import TemporaryDrawer from "../Drawer";
 import { useMediaQuery, useTheme } from "@mui/material";
+import ConnectWallet from "../../components/ConnectWallet";
 
 export default function Header() {
   const theme = useTheme();
@@ -97,47 +98,3 @@ export default function Header() {
     </HeaderStyled>
   );
 }
-
-const ConnectWallet = () => {
-  const {
-    chainId,
-    account,
-    activate,
-    deactivate,
-    setError,
-    active,
-    library,
-    connector,
-  } = useWeb3React<Web3Provider>();
-  const theme = useTheme();
-  const isMobileScreen = useMediaQuery(theme.breakpoints.down("md"));
-
-  const onClickConnect = () => {
-    activate(
-      isMobileScreen ? WalletConnect : injected,
-      (error) => {
-        if (error instanceof UserRejectedRequestError) {
-          // ignore user rejected error
-          console.log("user refused");
-        } else {
-          setError(error);
-        }
-      },
-      false,
-    );
-  };
-
-  const onClickDisconnect = () => {
-    deactivate();
-  };
-
-  return (
-    <ConnectWalletContainer>
-      {active && typeof account === "string" ? (
-        <Button onClick={onClickDisconnect}>{formatAddress(account)}</Button>
-      ) : (
-        <Button onClick={onClickConnect}>Connect Wallet</Button>
-      )}
-    </ConnectWalletContainer>
-  );
-};
