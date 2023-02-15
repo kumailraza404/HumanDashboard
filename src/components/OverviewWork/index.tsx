@@ -103,7 +103,7 @@ const OverviewWork = ({ setHappyHours }: IOverviewWork) => {
       </StepIconDiv>
       <StepDetailDiv>
         <Text customColor="#FFFFFF" size={28} weight={700}>
-          Work Completed
+          Work Done
         </Text>
         <Text customColor="#FFFFFF" size={22}>
           {totalTasks} Hours
