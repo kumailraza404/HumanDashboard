@@ -1,23 +1,11 @@
-import {
-  Box,
-  CircularProgress,
-  Grid,
-  SvgIcon,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Box, CircularProgress, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 
-import { getBalanceOfEth, injected, WalletConnect } from "../../utils/index";
-import { UserRejectedRequestError } from "@web3-react/injected-connector";
 import { Button, Text } from "../../styles";
-import {
-  getWealthData,
-  getWealthDataForEth,
-} from "../../services/wealthServices";
+import { getWealthData } from "../../services/wealthServices";
 import DashboardMetricCard from "../../components/DashboardMetricCard";
 
 import BasicTable from "./table";
@@ -41,46 +29,23 @@ const Wealth = () => {
   const [totalAssetinUSD, setTotalAssetinUSD] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  const { chainId, account, activate, deactivate, setError, active } =
+  const { chainId, account, activate, active, library } =
     useWeb3React<Web3Provider>();
 
   const formatResult = async (res: any) => {
-    console.log(res.data, "Check res.data from format result");
+    console.log(res.data, "Check res.data from format api call");
     if (res.data.length > 0) {
       let result = res.data;
-      const ethData = await getResultForEth();
-      console.log(ethData, "check eth data");
-      if (parseFloat(ethData.balance) > 0) result.push(ethData);
       setTokenList(result);
     }
-  };
-
-  const getResultForEth = async (): Promise<TokenDetails> => {
-    const ethBalance = await getBalanceOfEth(account || "");
-    const response = await getWealthDataForEth();
-    console.log(response, "check response getWealthDataForEth");
-
-    let obj: TokenDetails = {
-      token_address: "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619",
-      name: "Ethereum",
-      symbol: "Eth",
-      decimals: 18,
-      balance: ethBalance,
-      changeIn24h: response.data.weth.usd_24h_change,
-      usdPriceCurrent: response.data.weth.usd * parseFloat(ethBalance),
-      usdPricePast: 0,
-    };
-    return obj;
   };
 
   const getWealth = async () => {
     setLoading(true);
     const res = await getWealthData(account || "");
-    if (res.data == "Address not found" || res.data.length == 0) {
-      const ethData = await getResultForEth();
-      console.log(ethData, "check eth data");
-      if (parseFloat(ethData.balance) > 0) setTokenList([ethData]);
-    } else formatResult(res);
+    if (res.data != "Address not found" || res.data.length > 0) {
+      formatResult(res);
+    }
 
     setLoading(false);
   };
@@ -93,6 +58,20 @@ const Wealth = () => {
     setTotalAssetinUSD(sum);
   };
 
+  const switchNetwork = async () => {
+    try {
+      if (library)
+        // @ts-ignore
+        await library.provider.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: "0x" + (1).toString(16) }],
+        });
+    } catch (switchError) {
+      // 4902 error code indicates the chain is missing on the wallet
+      console.log(switchError, "error on switching network");
+    }
+  };
+
   useEffect(() => {
     calculateSum();
   }, [tokenList]);
@@ -102,6 +81,23 @@ const Wealth = () => {
       getWealth();
     }
   }, [active, account]);
+
+  if (active && chainId && chainId != 1)
+    return (
+      <Grid
+        container
+        sx={{ height: "70vh" }}
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        flexDirection={"column"}
+      >
+        <Button onClick={switchNetwork}>Switch Network</Button>
+        <Text sx={{ marginTop: "20px" }} size={20} weight={600}>
+          Please switch network to continue
+        </Text>
+      </Grid>
+    );
 
   if (!active)
     return (

@@ -1,25 +1,38 @@
 import * as React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { TokenDetails } from ".";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
-import { SvgIcon } from "@mui/material";
+import { SvgIcon, useMediaQuery, useTheme } from "@mui/material";
 
 interface Props {
   tokenList: TokenDetails[];
 }
 
 const BasicTable = ({ tokenList }: Props) => {
+  const theme = useTheme();
+  const isMobileScreen = useMediaQuery(theme.breakpoints.down("md"));
+
   const tokens = Array.from(tokenList);
 
+  // 1px solid rgba(224, 224, 224, 1)
   return (
     <TableContainer component={Paper}>
-      <Table aria-label="simple table">
+      <Table
+        aria-label="simple table"
+        sx={{
+          [`& .${tableCellClasses.root}`]: {
+            borderBottom: isMobileScreen
+              ? "none"
+              : "1px solid rgba(224, 224, 224, 1)",
+          },
+        }}
+      >
         <TableHead sx={{ background: "#7164ba" }}>
           <TableRow>
             <TableCell
