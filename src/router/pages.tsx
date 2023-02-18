@@ -2,6 +2,7 @@ import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import Fitness from "../pages/Fitness";
 import Home from "../pages/Home";
+import Privacy from "../pages/Privacy";
 import Sleep from "../pages/Sleep";
 import Wealth from "../pages/Wealth";
 import WorkLife from "../pages/WorkLife";
@@ -53,7 +54,7 @@ const Pages = createBrowserRouter([
     path: "/privacy",
     element: (
       <Layout>
-        <Text sx={{ margin: "20px" }}>
+        {/* <Text sx={{ margin: "20px" }}>
           Welcome to blah blah This is an open source React app developed by
           Team at HumanDashboard. The source code is available on GitHub under
           the MIT license;. As an avid user myself, I take privacy very
@@ -90,7 +91,8 @@ const Pages = createBrowserRouter([
           inadvertently caused by me, or have any question regarding how the app
           protectes your privacy, please send me an email or post a discussion
           on GitHub, and I will surely try to fix it/help you.
-        </Text>
+        </Text> */}
+        <Privacy />
       </Layout>
     ),
   },
