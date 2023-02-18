@@ -36,8 +36,6 @@ export default function Header() {
   const scopes = [
     "https://www.googleapis.com/auth/fitness.activity.read",
     "https://www.googleapis.com/auth/calendar.readonly",
-    "https://www.googleapis.com/auth/calendar.settings.readonly",
-    "https://www.googleapis.com/auth/calendar",
     "https://www.googleapis.com/auth/fitness.sleep.read",
     "https://www.googleapis.com/auth/fitness.nutrition.read",
     "https://www.googleapis.com/auth/fitness.location.read",
