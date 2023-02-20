@@ -67,32 +67,15 @@ export default function Header() {
 
   return (
     <HeaderStyled container>
-      <HeaderChild
-        item
-        xs={12}
-        md={6}
-        justifyContent={"space-between"}
-        alignItems={"center"}
-      >
-        <Text size={20} weight={700}>
-          Human Dashboard
-        </Text>
-        <TemporaryDrawer />
+      <Text size={40} weight={700}>
+        Fit flor
+      </Text>
 
-        {/* <Text size={20} weight={700}>
-          Human Dashboard
-        </Text> */}
-      </HeaderChild>
-
-      <HeaderChild2 item xs={12} md={6} display={"flex"}>
-        <ConnectWallet />
-
-        {isSignedIn ? (
-          <ProfileCircle src={picture} referrerPolicy="no-referrer" />
-        ) : (
-          <Button onClick={() => login()}>Sign In</Button>
-        )}
-      </HeaderChild2>
+      {isSignedIn ? (
+        <ProfileCircle src={picture} referrerPolicy="no-referrer" />
+      ) : (
+        <Button onClick={() => login()}>Sign In</Button>
+      )}
     </HeaderStyled>
   );
 }

@@ -8,16 +8,9 @@ import { Text } from "../../styles";
 import { RootState } from "../../store/reducer";
 import { getStepCountsForTheDay } from "../../services/stepCount";
 
-interface IDailyJogging {
-  setDailyStepsForTheDay: (args: number) => void;
-  dailyStepsForTheDay: number;
-}
-
-const DailyJogging = ({
-  setDailyStepsForTheDay,
-  dailyStepsForTheDay,
-}: IDailyJogging) => {
+const DailyJogging = () => {
   const { isSignedIn } = useSelector((state: RootState) => state.user);
+  const [dailyStepsForTheDay, setDailyStepsForTheDay] = useState(0);
 
   const getStepCountData = async () => {
     const result = await getStepCountsForTheDay();
@@ -29,12 +22,10 @@ const DailyJogging = ({
       0,
     );
 
-    // console.log(sum, "total steps");
     setDailyStepsForTheDay(sum);
   };
   useEffect(() => {
     if (isSignedIn) {
-      // getSleepData();
       getStepCountData();
     }
   }, [isSignedIn]);
@@ -43,15 +34,21 @@ const DailyJogging = ({
       <StepIconDiv>
         <SvgIcon
           component={DirectionsRunIcon}
-          sx={{ color: "white", height: "45px", width: "45px" }}
+          sx={{
+            color: "#1d1d1d",
+            height: "8rem",
+            width: "8rem",
+            transform: "rotate(300deg)",
+          }}
         />
       </StepIconDiv>
-      <StepDetailDiv>
-        <Text customColor="#FFFFFF" size={28} weight={700}>
-          Daily Steps
+
+      <StepDetailDiv sx={{ marginTop: "10%" }}>
+        <Text size={28} weight={700} align={"center"}>
+          {dailyStepsForTheDay}
         </Text>
-        <Text customColor="#FFFFFF" size={22}>
-          {dailyStepsForTheDay} Steps
+        <Text size={22} weight={700} align={"center"}>
+          Steps
         </Text>
       </StepDetailDiv>
     </OverviewSteps>

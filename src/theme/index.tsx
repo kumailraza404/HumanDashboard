@@ -4,21 +4,19 @@ import Sidebar from "./Sidebar";
 import Header from "./Header";
 import { relative } from "path";
 
-let i = new Array(60).fill(5);
-
 const Layout = ({ ...props }) => (
   <Box
     sx={{
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-around",
+      background: "#FFFFFF",
+      minHeight: "100vh",
     }}
   >
-    <Sidebar />
-
     <Box
       sx={{
-        width: "90vw",
+        width: "80vw",
         padding: "0px 20px",
       }}
     >

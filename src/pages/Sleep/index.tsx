@@ -31,7 +31,7 @@ const Sleep = () => {
                 Last Night's Sleep Quality
               </Text>
             </div>
-            <DailySleepSegmentChart />
+            {/* <DailySleepSegmentChart /> */}
           </div>
         </Grid>
       </Grid>
