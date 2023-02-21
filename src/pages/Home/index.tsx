@@ -7,15 +7,15 @@ const Home = () => {
     <Grid
       container
       display={"flex"}
-      justifyContent={"space-between"}
-      columnSpacing={40}
-      rowSpacing={4}
+      justifyContent={"center"}
+      alignItems={"center"}
+      rowSpacing={6}
     >
-      <Grid item md={6} xs={12}>
-        <DailyJogging />
-      </Grid>
-      <Grid item md={6} xs={12}>
+      <Grid item md={2.5} xs={11} sx={{ marginRight: "3rem" }}>
         <OverviewSleep />
+      </Grid>
+      <Grid item md={2.5} xs={11}>
+        <DailyJogging />
       </Grid>
     </Grid>
   );

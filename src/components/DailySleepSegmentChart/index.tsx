@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 // import sleepSegment from "../../assets/mockData/sleepSegemts.json";
 import { RootState } from "../../store/reducer";
 import { getTodaysSleepSegements } from "../../services/sleepServices";
-import { current } from "@reduxjs/toolkit";
 import ErrorIcon from "@mui/icons-material/Error";
 import { Text } from "../../styles";
 import { Grid, SvgIcon, useMediaQuery, useTheme } from "@mui/material";
@@ -25,6 +24,14 @@ const DailySleepSegmentChart = ({ setPoints }: IDailySleepSegmentChart) => {
   const { isSignedIn } = useSelector((state: RootState) => state.user);
 
   const options: ApexCharts.ApexOptions = {
+    colors: ["#E5E0DF", "#716C6A", "#FFFFFF", "#7F7F7F", "#BFBFBF", "#7F7474"],
+    plotOptions: {
+      pie: {
+        donut: {
+          size: "7%",
+        },
+      },
+    },
     labels: [
       "Awake",
       "Sleep",
@@ -34,8 +41,8 @@ const DailySleepSegmentChart = ({ setPoints }: IDailySleepSegmentChart) => {
       "REM",
     ],
     legend: {
-      show: false,
-      // position: isMobileScreen ? "top" : "left",
+      show: isMobileScreen,
+      position: "top",
       // offsetY: isMobileScreen ? 1 : 100,
       // offsetX: isMobileScreen ? 2 : 200,
       // fontSize: "16px",
@@ -43,8 +50,9 @@ const DailySleepSegmentChart = ({ setPoints }: IDailySleepSegmentChart) => {
       //   horizontal: 10,
       //   // vertical: 20,
       // },
+      fontSize: "12px",
       labels: {
-        colors: ["red", "blue", "green", "orange", "yellow", "purple"],
+        colors: ["#FFFFFF"],
       },
     },
   };
@@ -99,13 +107,13 @@ const DailySleepSegmentChart = ({ setPoints }: IDailySleepSegmentChart) => {
   // if (series.every(checkIfZero)) return <UnableToFetch />;
   // showing deep sleep if no sleep segments are available for last night
   return (
-    <Grid marginTop={"30%"}>
+    <Grid>
       <ReactApexChart
         options={options}
-        series={series.every(checkIfZero) ? [0, 0, 0, 0, 1, 0] : series}
+        series={series.every(checkIfZero) ? [1, 1, 1, 1, 1, 1] : series}
         type="donut"
-        height={300}
-        width={"100%"}
+        height={280}
+        width={280}
       />
     </Grid>
   );

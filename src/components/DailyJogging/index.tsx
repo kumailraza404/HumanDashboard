@@ -8,6 +8,10 @@ import { Text } from "../../styles";
 import { RootState } from "../../store/reducer";
 import { getStepCountsForTheDay } from "../../services/stepCount";
 
+const ShoeIcon = "../../assets/shoes.svg";
+import sh from "../../assets/shoes.svg";
+console.log(ShoeIcon, "check it");
+
 const DailyJogging = () => {
   const { isSignedIn } = useSelector((state: RootState) => state.user);
   const [dailyStepsForTheDay, setDailyStepsForTheDay] = useState(0);
@@ -32,23 +36,25 @@ const DailyJogging = () => {
   return (
     <OverviewSteps>
       <StepIconDiv>
-        <SvgIcon
-          component={DirectionsRunIcon}
+        <img
+          src={sh}
+          style={{ height: "50%", width: "50%", transform: "rotate(300deg)" }}
+          alt="running"
+        />
+        {/* <SvgIcon
+          component={shoes}
           sx={{
             color: "#1d1d1d",
             height: "8rem",
             width: "8rem",
             transform: "rotate(300deg)",
           }}
-        />
+        /> */}
       </StepIconDiv>
 
-      <StepDetailDiv sx={{ marginTop: "10%" }}>
-        <Text size={28} weight={700} align={"center"}>
-          {dailyStepsForTheDay}
-        </Text>
+      <StepDetailDiv sx={{ marginTop: "28%" }}>
         <Text size={22} weight={700} align={"center"}>
-          Steps
+          {dailyStepsForTheDay} Steps
         </Text>
       </StepDetailDiv>
     </OverviewSteps>

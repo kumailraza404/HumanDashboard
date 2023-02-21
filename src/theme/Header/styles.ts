@@ -6,7 +6,6 @@ export const HeaderStyled = styled(Grid)(() => ({
   alignItems: "center",
   justifyContent: "space-between",
   height: "fit-content",
-  marginTop: "1%",
 }));
 
 export const ProfileCircle = styled("img")(() => ({

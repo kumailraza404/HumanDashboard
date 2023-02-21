@@ -24,19 +24,22 @@ export const OverviewSteps = styled("div", {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  boxShadow: "10px 5px 5px rgba(0,0,0,0.2)",
-  border: "2px solid #1d1d1d",
+  justifyContent: "center",
+  boxShadow: "-10px 5px 5px rgba(0,0,0,0.5)",
+  border: "1px solid #1d1d1d",
 }));
 
 export const StepIconDiv = styled("div")(() => ({
-  height: "10rem",
+  height: "150px",
+  width: "150px",
   border: "1px solid #1d1d1d",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  marginTop: "40%",
-  transform: "rotate(40deg)",
+  // marginTop: "40%",
+  transform: "rotate(45deg)",
   padding: "10px",
+  marginTop: "13%",
 }));
 
 export const StepDetailDiv = styled("div")(() => ({

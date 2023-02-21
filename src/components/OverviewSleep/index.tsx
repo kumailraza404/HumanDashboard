@@ -8,12 +8,9 @@ const OverviewSleep = () => {
   return (
     <OverviewSteps background={"#1d1d1d"}>
       <DailySleepSegmentChart setPoints={setPoints} />
-      <StepDetailDiv sx={{ marginTop: "5%" }}>
-        <Text customColor="#FFFFFF" size={28} weight={700} align={"center"}>
-          {points}
-        </Text>
+      <StepDetailDiv sx={{ marginTop: "15%" }}>
         <Text customColor="#FFFFFF" size={22} align={"center"}>
-          Sleep Score
+          Sleep Score: {points}
         </Text>
       </StepDetailDiv>
     </OverviewSteps>

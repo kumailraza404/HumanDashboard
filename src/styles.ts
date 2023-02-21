@@ -4,13 +4,14 @@ import { CSSProperties } from "react";
 import { ButtonBase } from "@mui/material";
 
 export const Button = styled(ButtonBase)(() => ({
-  background: "#1F1F1F",
+  background: "#1d1d1d",
   height: "50px",
   color: "#FFFFFF",
   minWidth: "120px",
   borderRadius: "10px",
   fontSize: "20px",
-  fontWeight: "400",
+  fontWeight: "600",
+  boxShadow: "-5px 4px 4px rgba(0,0,0,0.5)",
 }));
 
 export const DropDownBox = styled(Select)(() => ({

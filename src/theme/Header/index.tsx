@@ -23,8 +23,12 @@ import { Web3Provider } from "@ethersproject/providers";
 import { formatAddress, injected, WalletConnect } from "../../utils/index";
 import { UserRejectedRequestError } from "@web3-react/injected-connector";
 import TemporaryDrawer from "../Drawer";
-import { useMediaQuery, useTheme } from "@mui/material";
+import { Grid, useMediaQuery, useTheme } from "@mui/material";
 import ConnectWallet from "../../components/ConnectWallet";
+// import Logo from "../../assets/logo.jpg";
+// import Logo from "../../assets/NetworkLogo.jpg";
+const logo = require("../../assets/NetworkLogo.jpg");
+import Logo from "../../assets/logo.png";
 
 export default function Header() {
   const theme = useTheme();
@@ -67,9 +71,12 @@ export default function Header() {
 
   return (
     <HeaderStyled container>
-      <Text size={40} weight={700}>
-        Fit flor
-      </Text>
+      <Grid display={"flex"} flexDirection="row" alignItems={"center"}>
+        <img src={Logo} style={{ height: "80px", width: "80px" }} />
+        <Text size={40} weight={500}>
+          Fit Flow
+        </Text>
+      </Grid>
 
       {isSignedIn ? (
         <ProfileCircle src={picture} referrerPolicy="no-referrer" />
