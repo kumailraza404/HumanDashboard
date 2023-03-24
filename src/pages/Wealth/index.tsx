@@ -7,9 +7,11 @@ import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import { Button, Text } from "../../styles";
 import { getWealthData } from "../../services/wealthServices";
 import DashboardMetricCard from "../../components/DashboardMetricCard";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 import BasicTable from "./table";
-import ConnectWallet from "../../components/ConnectWallet";
+import { injected, WalletConnect } from "../../utils";
+import { UserRejectedRequestError } from "@web3-react/injected-connector";
 
 export interface TokenDetails {
   token_address: string;
@@ -82,39 +84,7 @@ const Wealth = () => {
     }
   }, [active, account]);
 
-  if (active && chainId && chainId != 1)
-    return (
-      <Grid
-        container
-        sx={{ height: "70vh" }}
-        display={"flex"}
-        justifyContent={"center"}
-        alignItems={"center"}
-        flexDirection={"column"}
-      >
-        <Button onClick={switchNetwork}>Switch Network</Button>
-        <Text sx={{ marginTop: "20px" }} size={20} weight={600}>
-          Please switch network to continue
-        </Text>
-      </Grid>
-    );
-
-  if (!active)
-    return (
-      <Grid
-        container
-        sx={{ height: "70vh" }}
-        display={"flex"}
-        justifyContent={"center"}
-        alignItems={"center"}
-        flexDirection={"column"}
-      >
-        <ConnectWallet />
-        <Text sx={{ marginTop: "20px" }} size={20} weight={600}>
-          Connect your account to continue
-        </Text>
-      </Grid>
-    );
+  if (!active) return <ConnectWallet />;
   return (
     <Grid>
       <Grid
@@ -158,3 +128,48 @@ const Wealth = () => {
 };
 
 export default Wealth;
+
+const ConnectWallet = () => {
+  const { chainId, account, activate, setError, active, library, connector } =
+    useWeb3React<Web3Provider>();
+
+  const theme = useTheme();
+  const isMobileScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const onClickConnect = () => {
+    activate(
+      isMobileScreen ? WalletConnect : injected,
+      (error) => {
+        if (error instanceof UserRejectedRequestError) {
+          // ignore user rejected error
+          console.log("user refused");
+        } else {
+          setError(error);
+        }
+      },
+      false,
+    );
+  };
+
+  return (
+    <Grid
+      container
+      sx={{ height: "70vh" }}
+      display={"flex"}
+      justifyContent={"center"}
+      alignItems={"center"}
+      flexDirection={"column"}
+    >
+      <Button onClick={onClickConnect}>Connect Wallet</Button>
+      <Text sx={{ marginTop: "20px" }} size={20} weight={600}>
+        Connect your account to continue
+      </Text>
+    </Grid>
+  );
+};
+
+interface IAssetCard {
+  heading: string;
+  percentageChange: number;
+  currentPrice: number;
+  icon: string;
+}
