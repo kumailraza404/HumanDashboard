@@ -2,6 +2,9 @@ import React, { Children } from "react";
 import { Box } from "@mui/material";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
+import { relative } from "path";
+
+let i = new Array(60).fill(5);
 
 const Layout = ({ ...props }) => (
   <Box
@@ -9,10 +12,10 @@ const Layout = ({ ...props }) => (
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-around",
-      // background: "#FFFFFF",
-      minHeight: "100vh",
     }}
   >
+    <Sidebar />
+
     <Box
       sx={{
         width: "90vw",

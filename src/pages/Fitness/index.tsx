@@ -258,7 +258,7 @@ const Fitness = () => {
         columnSpacing={4}
         rowSpacing={6}
       >
-        <Grid item xs={11} md={3}>
+        <Grid item xs={12} md={3}>
           <DashboardMetricCard
             heading={`Calories Burned`}
             subHeading={`${caloriesBurned.toFixed(2)} in kcal`}
@@ -267,7 +267,7 @@ const Fitness = () => {
           />
         </Grid>
 
-        <Grid item xs={11} md={3}>
+        <Grid item xs={12} md={3}>
           <DashboardMetricCard
             heading={`Hydration`}
             subHeading={`${hydration.toFixed(2)} litres`}
@@ -276,7 +276,7 @@ const Fitness = () => {
           />
         </Grid>
 
-        <Grid item xs={11} md={3}>
+        <Grid item xs={12} md={3}>
           <DashboardMetricCard
             heading={`Distance Covered`}
             subHeading={`${distanceCovered.toFixed(2)} meters`}
@@ -285,7 +285,7 @@ const Fitness = () => {
           />
         </Grid>
 
-        <Grid item xs={11} md={3}>
+        <Grid item xs={12} md={3}>
           <DashboardMetricCard
             heading={`Heart Points`}
             subHeading={`${heartPts.toFixed(2)} pts`}

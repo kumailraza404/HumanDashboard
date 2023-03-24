@@ -20,14 +20,10 @@ import {
 import { RootState } from "../../store/reducer";
 import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
-import { formatAddress, injected, WalletConnect } from "../../utils/index";
+import { formatAddress, injected } from "../../utils/index";
 import { UserRejectedRequestError } from "@web3-react/injected-connector";
 import TemporaryDrawer from "../Drawer";
-import { Grid, useMediaQuery, useTheme } from "@mui/material";
-// import Logo from "../../assets/logo.jpg";
-// import Logo from "../../assets/NetworkLogo.jpg";
-const logo = require("../../assets/NetworkLogo.jpg");
-import Logo from "../../assets/logo.png";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 export default function Header() {
   const theme = useTheme();
@@ -39,6 +35,8 @@ export default function Header() {
   const scopes = [
     "https://www.googleapis.com/auth/fitness.activity.read",
     "https://www.googleapis.com/auth/calendar.readonly",
+    "https://www.googleapis.com/auth/calendar.settings.readonly",
+    "https://www.googleapis.com/auth/calendar",
     "https://www.googleapis.com/auth/fitness.sleep.read",
     "https://www.googleapis.com/auth/fitness.nutrition.read",
     "https://www.googleapis.com/auth/fitness.location.read",
@@ -70,18 +68,32 @@ export default function Header() {
 
   return (
     <HeaderStyled container>
-      <Grid display={"flex"} flexDirection="row" alignItems={"center"}>
-        <img src={Logo} style={{ height: "80px", width: "80px" }} />
-        <Text size={40} weight={500}>
-          Fit Flow
+      <HeaderChild
+        item
+        xs={12}
+        md={6}
+        justifyContent={"space-between"}
+        alignItems={"center"}
+      >
+        <Text size={20} weight={700}>
+          Human Dashboard
         </Text>
-      </Grid>
+        <TemporaryDrawer />
 
-      {isSignedIn ? (
-        <ProfileCircle src={picture} referrerPolicy="no-referrer" />
-      ) : (
-        <Button onClick={() => login()}>Sign In</Button>
-      )}
+        {/* <Text size={20} weight={700}>
+          Human Dashboard
+        </Text> */}
+      </HeaderChild>
+
+      <HeaderChild2 item xs={12} md={6} display={"flex"}>
+        <ConnectWallet />
+
+        {isSignedIn ? (
+          <ProfileCircle src={picture} referrerPolicy="no-referrer" />
+        ) : (
+          <Button onClick={() => login()}>Sign In</Button>
+        )}
+      </HeaderChild2>
     </HeaderStyled>
   );
 }
@@ -97,12 +109,10 @@ const ConnectWallet = () => {
     library,
     connector,
   } = useWeb3React<Web3Provider>();
-  const theme = useTheme();
-  const isMobileScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const onClickConnect = () => {
     activate(
-      isMobileScreen ? WalletConnect : injected,
+      injected,
       (error) => {
         if (error instanceof UserRejectedRequestError) {
           // ignore user rejected error

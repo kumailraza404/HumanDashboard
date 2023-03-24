@@ -1,17 +1,19 @@
-import { Box, CircularProgress, Grid } from "@mui/material";
+import { Box, CircularProgress, Grid, SvgIcon } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 
+import { getBalanceOfEth, injected } from "../../utils/index";
+import { UserRejectedRequestError } from "@web3-react/injected-connector";
 import { Button, Text } from "../../styles";
-import { getWealthData } from "../../services/wealthServices";
+import {
+  getWealthData,
+  getWealthDataForEth,
+} from "../../services/wealthServices";
 import DashboardMetricCard from "../../components/DashboardMetricCard";
-import { useMediaQuery, useTheme } from "@mui/material";
 
 import BasicTable from "./table";
-import { injected, WalletConnect } from "../../utils";
-import { UserRejectedRequestError } from "@web3-react/injected-connector";
 
 export interface TokenDetails {
   token_address: string;
@@ -31,23 +33,46 @@ const Wealth = () => {
   const [totalAssetinUSD, setTotalAssetinUSD] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  const { chainId, account, activate, active, library } =
+  const { chainId, account, activate, deactivate, setError, active } =
     useWeb3React<Web3Provider>();
 
   const formatResult = async (res: any) => {
-    console.log(res.data, "Check res.data from format api call");
+    console.log(res.data, "Check res.data from format result");
     if (res.data.length > 0) {
       let result = res.data;
+      const ethData = await getResultForEth();
+      console.log(ethData, "check eth data");
+      if (parseFloat(ethData.balance) > 0) result.push(ethData);
       setTokenList(result);
     }
+  };
+
+  const getResultForEth = async (): Promise<TokenDetails> => {
+    const ethBalance = await getBalanceOfEth(account || "");
+    const response = await getWealthDataForEth();
+    console.log(response, "check response getWealthDataForEth");
+
+    let obj: TokenDetails = {
+      token_address: "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619",
+      name: "Ethereum",
+      symbol: "Eth",
+      decimals: 18,
+      balance: ethBalance,
+      changeIn24h: response.data.weth.usd_24h_change,
+      usdPriceCurrent: response.data.weth.usd * parseFloat(ethBalance),
+      usdPricePast: 0,
+    };
+    return obj;
   };
 
   const getWealth = async () => {
     setLoading(true);
     const res = await getWealthData(account || "");
-    if (res.data != "Address not found" || res.data.length > 0) {
-      formatResult(res);
-    }
+    if (res.data == "Address not found" || res.data.length == 0) {
+      const ethData = await getResultForEth();
+      console.log(ethData, "check eth data");
+      if (parseFloat(ethData.balance) > 0) setTokenList([ethData]);
+    } else formatResult(res);
 
     setLoading(false);
   };
@@ -58,20 +83,6 @@ const Wealth = () => {
       0,
     );
     setTotalAssetinUSD(sum);
-  };
-
-  const switchNetwork = async () => {
-    try {
-      if (library)
-        // @ts-ignore
-        await library.provider.request({
-          method: "wallet_switchEthereumChain",
-          params: [{ chainId: "0x" + (1).toString(16) }],
-        });
-    } catch (switchError) {
-      // 4902 error code indicates the chain is missing on the wallet
-      console.log(switchError, "error on switching network");
-    }
   };
 
   useEffect(() => {
@@ -133,11 +144,9 @@ const ConnectWallet = () => {
   const { chainId, account, activate, setError, active, library, connector } =
     useWeb3React<Web3Provider>();
 
-  const theme = useTheme();
-  const isMobileScreen = useMediaQuery(theme.breakpoints.down("md"));
   const onClickConnect = () => {
     activate(
-      isMobileScreen ? WalletConnect : injected,
+      injected,
       (error) => {
         if (error instanceof UserRejectedRequestError) {
           // ignore user rejected error

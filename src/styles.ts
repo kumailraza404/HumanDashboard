@@ -4,14 +4,11 @@ import { CSSProperties } from "react";
 import { ButtonBase } from "@mui/material";
 
 export const Button = styled(ButtonBase)(() => ({
-  background: "#1d1d1d",
+  background: "#7164ba",
   height: "50px",
   color: "#FFFFFF",
   minWidth: "120px",
   borderRadius: "10px",
-  fontSize: "20px",
-  fontWeight: "600",
-  boxShadow: "-5px 4px 4px rgba(0,0,0,0.5)",
 }));
 
 export const DropDownBox = styled(Select)(() => ({
@@ -77,7 +74,7 @@ export const Text = styled("div", {
     customStyle,
     isClickable = true,
   }) => ({
-    fontFamily: "'Merriweather', serif", // this is working now
+    fontFamily: "Roboto", // this is working now
     fontWeight: weight,
     fontSize: `${size / 18}em`,
     lineHeight: lineHeight,
@@ -88,7 +85,7 @@ export const Text = styled("div", {
     WebkitUserSelect: isClickable ? "unset" : "none",
     MozUserSelect: isClickable ? "unset" : "none",
     msUserSelect: isClickable ? "unset" : "none",
-    color: customColor ? customColor : "#1F1F1F",
+    color: customColor ? customColor : "#7164ba",
     ...customStyle,
   }),
 );
